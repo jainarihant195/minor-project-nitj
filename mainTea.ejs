@@ -118,7 +118,7 @@ background: linear-gradient(0deg, #F1A222 0%, #F1A222 100%);
 	<td><%= data[i].phnum%></td>
   
 
-  <% if (data[i].status!='hod') { %>
+  <% if (data[i].status=='' ) { %>
     <form class="" action="/update" method="post">
       <td>
         <input type="text" name="aid" hidden value="<%=data[i].id%>">

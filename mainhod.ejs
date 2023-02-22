@@ -121,14 +121,24 @@
 	<td><%= data[i].reason%></td>
 	<td id="status"><%= data[i].status%></td>
 	<td><%= data[i].phnum%></td>
-  <form class="" action="/updatehod" method="post">
-    <td>
-    
-      <button type="submit" name="accepting"  value="<%= data[i].auto%>" class="cutom-btn btn-2">ACCEPT</button>
-  </form>
-  <form class="" action="/hdecline" method="post">
-      <td><button type="submit" name="declining" value="<%= data[i].auto%>" class="cutom-btn btn-1">DECLINE</button></td>
+
+  <% if (data[i].status=='hod' ) { %>
+    <form class="" action="/updatehod" method="post">
+      <td>
+        <input type="text" name="aid" hidden value="<%=data[i].id%>">
+        <button type="submit" name="accepting" value="<%= data[i].auto%>" class="cutom-btn btn-2">ACCEPT</button>
     </form>
+    <form class="" action="/tdecline" method="post">
+        <td><button type="submit" name="declining" value="<%= data[i].auto%>" class="cutom-btn btn-1">DECLINE</button></td>
+      </form>  
+    <%} else { %>
+     <div class="container d-flex justify-content-center">
+     <td>
+      <button class="btn btn-success">Approved</button>
+     </td> 
+     </div>
+     
+    <% } %>
   </tr>
   <% 
    

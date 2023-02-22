@@ -54,20 +54,30 @@ app.post('/slogin', function (request, response) {
 // http://localhost:3000/auth
 app.post('/sauth', function (request, response) {
 	// Capture the input fields
-	let username = request.body.username;
+	let roll = request.body.roll;
 	let password = request.body.password;
+	let user=request.body.user;
 	// Ensure the input fields exists and are not empty
-	if (username && password) {
+	console.log(roll);
+	console.log(password);
+	console.log(user);
+	if (roll && password) {
 		// Execute SQL query that'll select the account from the database based on the specified username and password
-		connection.query('SELECT * FROM userTable WHERE user = ? AND password = ?', [username, password], function (error, results, fields) {
+		connection.query('SELECT * FROM userTable WHERE roll = ? AND password = ?', [roll, password], function (error, results, fields) {
 			// If there is an issue with the query, output the error
 			if (error) throw error;
 			// If the account exists
 			if (results.length > 0) {
 				// Authenticate the user
+				results.map(val => {
+					console.log(val.user);
+					request.session.userr = val.user;
+				});
 				request.session.loggedin = true;
-				request.session.username = username;
+				
+				
 				// Redirect to home page
+				// console.log(results)
 				response.redirect('/shome');
 				//response.render("/shome");
 			} else {
@@ -91,15 +101,17 @@ app.post('/ssignup', function (request, response) {
 // http://localhost:3000/register
 app.post('/register', function (request, response) {
 	// Capture the input fields
+	let roll=request.body.roll;
 	let username = request.body.username;
 	let password = request.body.password;
 	let confirm_password = request.body.confirm_password;
 
+	
 	// Ensure the input fields exists and are not empty
-	if (username && password && confirm_password) {
-		console.log(username, password);
+	if (roll && password && confirm_password) {
+
 		// Execute SQL query that'll select the account from the database based on the specified username and password
-		connection.query('SELECT * FROM userTable WHERE user = ?', [username], function (error, results, fields) {
+		connection.query('SELECT * FROM userTable WHERE roll = ?', [roll], function (error, results, fields) {
 			// If there is an issue with the query, output the error
 			if (error) throw error;
 			// If the account exists
@@ -110,7 +122,8 @@ app.post('/register', function (request, response) {
 			} else {
 				var users = {
 					user: request.body.username,
-					password: request.body.password
+					password: request.body.password,
+					roll:request.body.roll
 				}
 
 				var sql = 'INSERT INTO userTable SET ?';
@@ -260,7 +273,7 @@ app.get('/home', function (request, response) {
 
 // http://localhost:3000/
 app.get('/shome', function (request, response) {
-	var un = request.session.username;
+	var un = request.session.userr;
 	console.log(un);
 	// Render login template
 	//response.sendFile(path.join(__dirname + '/mainStd.html'));
