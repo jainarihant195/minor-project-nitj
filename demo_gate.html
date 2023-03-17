@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="main.css">
   <link rel="stylesheet" href="new.css">
   <!-- <link rel="stylesheet" href="/static/login.css"> -->
-  <title>Student-Login</title>
+  <title>Admin</title>
 </head>
 
 <body>
@@ -25,9 +25,9 @@
             <li><a href="/slogin">Student Login</a></li>
           </form>
 
-          <li><a href="/tlogin" class="current">Hostel</a></li>
-          <li><a href="/hlogin">Admin</a></li>
-          <li><a href="/glogin">Gate Keeper</a></li>
+          <li><a href="/tlogin" >Hostel</a></li>
+          <li><a href="/hlogin" >Admin</a></li>
+          <li><a href="/glogin" class="current">Gate Keeper</a></li>
         </ul>
       </nav>
     </div>
@@ -36,8 +36,8 @@
     <div class="main">
 
       <div class="signup">
-        <form action="/tauth" method="post">
-          <label for="chk" aria-hidden="true">Hostel-Login</label>
+        <form action="/gauth" method="post">
+          <label for="chk" aria-hidden="true">Gate-Keeper</label>
           <input type="text" name="username" placeholder="Username" id="username" required>
           <input type="password" name="password" placeholder="Password" id="password" required>
           <button type="submit" value="Login">Login</button>

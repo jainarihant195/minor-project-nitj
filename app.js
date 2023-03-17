@@ -12,8 +12,9 @@ var fetchuser = require('./middleware/fetchuser');
 const JWT_SECRET = 'KingKohli';
 const router=express.Router();
 const User=require('./models/User');
+const { Console } = require('console');
 
-
+var sessionstorage = require('sessionstorage');
 
 const connection = mysql.createConnection({
 	host: process.env.HOST,
@@ -44,13 +45,15 @@ app.use(flash());
 // http://localhost:3000/
 app.get('/', function (request, response) {
 	// Render login template
-	response.sendFile(path.join(__dirname + '/index.html'));
+	// response.sendFile(path.join(__dirname + '/index.html'));
+	response.sendFile(path.join(__dirname + '/demo.html'));
 });
 
 // http://localhost:3000/slogin
-app.post('/slogin', function (request, response) {
+app.get('/slogin', function (request, response) {
 	// Render login template
-	response.sendFile(path.join(__dirname + '/login.html'));
+	// response.sendFile(path.join(__dirname + '/login.html'));
+	response.sendFile(path.join(__dirname + '/demo3.html'));
 });
 
 app.post('/sauth', async (req, res) => {
@@ -89,8 +92,12 @@ app.post('/sauth', async (req, res) => {
 						console.log(val.user);
 						req.session.userr = val.user;
 					});
-					
-					
+					const users1 =results[0].roll;
+					const users2 =results[0].user;
+					console.log("User1",users1);
+					console.log("User2",users2);
+					sessionstorage.setItem("currentloggedin",users1);
+					sessionstorage.setItem("currentuser",users2);
 					const authtoken = jwt.sign(results[0].roll, JWT_SECRET);
 					success = true;
 					//res.json({ success, authtoken })
@@ -260,7 +267,7 @@ app.post('/register',async (req,res)=>{
 });
 */
 // http://localhost:3000/tlogin
-app.post('/tlogin', function (request, response) {
+app.get('/tlogin', function (request, response) {
 	// Render login template
 	response.sendFile(path.join(__dirname + '/tlogin.html'));
 });
@@ -286,13 +293,32 @@ app.post('/tauth', function (request, response) {
 	// Ensure the input fields exists and are not empty
 	if (username && password) {
 
-		if (username == 'hostel' && password == 'hostel') {
+		if (username == 'mbhahostel' && password == 'mbhahostel') {
 			request.session.loggedin = true;
 			request.session.username = username;
+			sessionstorage.setItem("MBHA",username);
+			
+			// Redirect to home page
+			response.redirect('/thome');
+			
+		} 
+		else if (username == 'mbhbhostel' && password == 'mbhbhostel') {
+			request.session.loggedin = true;
+			request.session.username = username;
+			sessionstorage.setItem("MBHB",username);
+			// Redirect to home page
+			response.redirect('/thome');
+			
+		} 
+		else if (username == 'mbhfhostel' && password == 'mbhfhostel') {
+			request.session.loggedin = true;
+			request.session.username = username;
+			sessionstorage.setItem("MBHF",username);
 			// Redirect to home page
 			response.redirect('/thome');
 
-		} else {
+		} 
+		else {
 			response.send('Incorrect Username and/or Password!');
 		}
 		response.end();
@@ -303,9 +329,10 @@ app.post('/tauth', function (request, response) {
 });
 
 // http://localhost:3000/hlogin
-app.post('/hlogin', function (request, response) {
+app.get('/hlogin', function (request, response) {
 	// Render login template
-	response.sendFile(path.join(__dirname + '/hlogin.html'));
+	// response.sendFile(path.join(__dirname + '/hlogin.html'));
+	response.sendFile(path.join(__dirname + '/demo_admin.html'));
 });
 
 // http://localhost:3000/hauth
@@ -333,9 +360,10 @@ app.post('/hauth', function (request, response) {
 });
 
 // http://localhost:3000/glogin
-app.post('/glogin', function (request, response) {
+app.get('/glogin', function (request, response) {
 	// Render login template
-	response.sendFile(path.join(__dirname + '/glogin.html'));
+	// response.sendFile(path.join(__dirname + '/glogin.html'));
+	response.sendFile(path.join(__dirname + '/demo_gate.html'));
 });
 
 // http://localhost:3000/gauth
@@ -366,9 +394,10 @@ app.post('/gauth', function (request, response) {
 // http://localhost:3000/home
 app.get('/home', function (request, response) {
 	// If the user is loggedin
+	var show = sessionstorage.getItem("currentuser");
 	if (request.session.loggedin) {
 		// Output username
-		response.send('Welcome back, ' + request.session.username + '!');
+		response.send('Welcome back, ' + show + '!');
 	} else {
 		// Not logged in
 		response.send('Please login to view this page!');
@@ -391,21 +420,25 @@ app.get('/home', function (request, response) {
 
 // http://localhost:3000/
 app.get('/shome', function (request, response) {
-	var un = request.session.userr;
+	var un = sessionstorage.getItem("currentuser");
 	console.log(un);
 	// Render login template
 	//response.sendFile(path.join(__dirname + '/mainStd.html'));
-	response.render(__dirname + "/mainStd.ejs", { name: un });
+	// response.render(__dirname + "/mainStd.ejs", { name: un });
+	response.render(__dirname + "/demo2.ejs", { name: un });
+	
 });
-app.post('/apply', function (request, response) {
+app.get('/apply', function (request, response) {
 	// Render login template
-	response.sendFile(path.join(__dirname + '/apply.html'));
+	// response.sendFile(path.join(__dirname + '/apply.html'));
+	response.sendFile(path.join(__dirname + '/demo_apply.html'));
 });
 
 app.post('/filled', function (request, response) {
 	// Render login template
-	var roll = request.body.roll;
-	var name = request.body.name;
+	var roll = sessionstorage.getItem("currentloggedin");
+	// var name = request.body.name;
+	var name = sessionstorage.getItem("currentuser");
 	var date = request.body.date;
 	var section = request.body.section;
 	var hostel = request.body.hostel;
@@ -413,6 +446,8 @@ app.post('/filled', function (request, response) {
 	var reason = request.body.reason;
 	const newId = uuidv4();
 	console.log(newId);
+	console.log("name ",name);
+
 	//response.sendFile(path.join(__dirname + '/filled.ejs'));
 	response.render(__dirname + "/filled.ejs", { roll: roll, name: name, date: date, section: section, hostel:hostel,phnum: phnum, reason: reason,id:newId });
 	var details = {
@@ -426,6 +461,7 @@ app.post('/filled', function (request, response) {
 		id:newId
 
 	}
+
 	var sql = 'INSERT INTO gatepas SET ?';
 	connection.query(sql, details, function (error, results) {
 		if (error) throw error;
@@ -436,6 +472,7 @@ app.post('/filled', function (request, response) {
 app.post('/update', function (request, response) {
 	// Render login template
 	var auto = request.body.aid;
+	var clerk = request.body.hostel;
 	console.log(auto)
 	//var location = document.location;
 	var sql = 'UPDATE gatepas SET status = ? where id = ?'
@@ -452,12 +489,14 @@ app.post('/update', function (request, response) {
 });
 app.post('/tdecline', function (request, response) {
 	// Render login template
-	var auto = request.body.declining;
+	var auto = request.body.daid;
+	console.log(auto)
 	//var location = document.location;
-	var sql = 'UPDATE gatepas SET status = ? where auto = ?'
-	connection.query(sql, ['Declined from teacher', auto], function (error, results) {
+	var sql = 'UPDATE gatepas SET status = ? where id = ?'
+	connection.query(sql, ['Declined from Clerk', auto], function (error, results) {
 		if (error) throw error;
 		else {
+			console.log("derror")
 			response.redirect("/thome");
 			//res.json(result);
 		}
@@ -485,11 +524,12 @@ app.post('/hdecline', function (request, response) {
 
 
 
-app.post('/status', function (request, response) {
+app.get('/status', function (request, response) {
 	// Render login template
 	// response.sendFile(path.join(__dirname + '/status.html'));
-	var un = request.session.userr;
+	var un = sessionstorage.getItem("currentloggedin");
 	console.log('status', un);
+	// console.log('status', un);
 	connection.query('SELECT * FROM gatepas where roll=?',[un], function (err, rows) {
 		
 		if (err) {
@@ -497,7 +537,8 @@ app.post('/status', function (request, response) {
 			response.render(__dirname + "/status.ejs", { page_title: "Users - Node.js", data: '' });
 		} else {
 			console.log(rows);
-			response.render(__dirname + "/status.ejs", { page_title: "Users - Node.js", data: rows });
+			// response.render(__dirname + "/status.ejs", { page_title: "Users - Node.js", data: rows });
+			response.render(__dirname + "/demo_status.ejs", { page_title: "Users - Node.js", data: rows });
 		}
 		
 	});
@@ -512,10 +553,12 @@ app.get('/thome', function (request, response) {
 console.log(rows);
 		if (err) {
 			request.flash('error', err);
-			response.render(__dirname + "/mainTea.ejs", { page_title: "Users - Node.js", data: '' });
+			// response.render(__dirname + "/mainTea.ejs", { page_title: "Users - Node.js", data: '' });
+			response.render(__dirname + "/demo_hostel.ejs", { page_title: "Users - Node.js", data: rows });
 		} else {
 			//console.log(rows);
-			response.render(__dirname + "/mainTea.ejs", { page_title: "Users - Node.js", data: rows });
+			// response.render(__dirname + "/mainTea.ejs", { page_title: "Users - Node.js", data: rows });
+			response.render(__dirname + "/demo_hostel.ejs", { page_title: "Users - Node.js", data: rows });
 		}
 
 	});
@@ -537,7 +580,8 @@ app.get('/hhome', function (request, response) {
 			response.render(__dirname + "/mainhod.ejs", { page_title: "Users - Node.js", data: '' });
 		} else {
 			//console.log(rows);
-			response.render(__dirname + "/mainhod.ejs", { page_title: "Users - Node.js", data: rows });
+			// response.render(__dirname + "/mainhod.ejs", { page_title: "Users - Node.js", data: rows });
+			response.render(__dirname + "/demo_admin.ejs", { page_title: "Users - Node.js", data: rows });
 		}
 
 	});
@@ -570,28 +614,53 @@ app.get('/ghome', function (request, response) {
 
 		if (err) {
 			request.flash('error', err);
-			response.render(__dirname + "/maingate.ejs", { page_title: "Users - Node.js", data: '' });
+			// response.render(__dirname + "/maingate.ejs", { page_title: "Users - Node.js", data: '' });
+			response.render(__dirname + "/gate.ejs", { page_title: "Users - Node.js", data: '' });
 		} else {
 			//console.log(rows);
-			response.render(__dirname + "/maingate.ejs", { page_title: "Users - Node.js", data: rows });
+			// response.render(__dirname + "/maingate.ejs", { page_title: "Users - Node.js", data: rows });
+			response.render(__dirname + "/demo_gate.ejs", { page_title: "Users - Node.js", data: rows });
 		}
 
 	});
 });
 
-app.post('/updategate', function (request, response) {
+app.post('/updategate', function(request, response) {
 	// Render login template
-	var auto = request.body.out;
+	var auto = request.body.outid;
+	console.log("auto",auto);
+    //var location = document.location;
+
+	var sql = 'UPDATE gatepas SET status = ? where id = ?'
+	connection.query(sql, ['Out', auto], function (error, results) {
+		console.log(results);
+		if (error) throw error;
+		else{
+			response.redirect("/ghome");
+			//res.json(result);
+		  }
+	});
+	//response.sendFile(path.join(__dirname + '/updated.html'));
+	//response.render(__dirname+"/updated.html");
+	
+});
+/*app.post('/updategate', function (request, response) {
+	// Render login template
+	var auto = request.body.outid;
+	//console.log(auto)
 	//var location = document.location;
-	var sql = 'UPDATE gatepas SET status = ?, outtime = CURRENT_TIMESTAMP where auto = ?'
-	connection.query(sql, ['Approved', auto], function (error, results) {
+	
+	connection.query('UPDATE gatepas SET status = ? where id = ?', ['Approved', auto], function (error, results) {
+		
 		if (error) throw error;
 		else {
 			// response.redirect("/ghome");
-			//res.json(result);
+			console.log(results)
 			var un = request.session.username;
+			console.log(un)
+			
 			connection.query('SELECT * FROM gatepas where roll=?', [un], function (err, rows) {
-		
+		console.log(rows)
 				if (err) {
 					request.flash('error', err);
 					response.render(__dirname + "/status.ejs", { page_title: "Users - Node.js", data: '' });
@@ -607,6 +676,6 @@ app.post('/updategate', function (request, response) {
 	// response.sendFile(path.join(__dirname + '/updated.html'));
 	// response.render(__dirname+"/updated.html");
 
-});
+});*/
 //port number
 app.listen(3000);

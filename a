@@ -8,11 +8,13 @@ flash = require('express-flash')
 const { body, validationResult } = require('express-validator');
 const bcrypt=require('bcryptjs');
 var jwt = require('jsonwebtoken');
-var fetchuser = require('../middleware/fetchuser');
+var fetchuser = require('./middleware/fetchuser');
 const JWT_SECRET = 'KingKohli';
 const router=express.Router();
+const User=require('./models/User');
+const { Console } = require('console');
 
-
+var sessionstorage = require('sessionstorage');
 
 const connection = mysql.createConnection({
 	host: process.env.HOST,
@@ -52,8 +54,75 @@ app.post('/slogin', function (request, response) {
 	response.sendFile(path.join(__dirname + '/login.html'));
 });
 
+app.post('/sauth', async (req, res) => {
+	let success = false;
+	let roll = req.body.roll;
+	let password = req.body.password;
+	let user=req.body.user;
+	// If there are errors, return Bad request and the errors
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+	  return res.status(400).json({ errors: errors.array() });
+	}
+
+		if (!roll || !password) {
+			success = false
+			return res.status(400).json({ error: "Please try to login with correct credentials" });
+		}
+		
+		if (roll && password) {
+			// Execute SQL query that'll select the account from the database based on the specified username and password
+			connection.query('SELECT * FROM userTable WHERE roll = ?', [roll], async (error, results, fields)=>{
+				// If there is an issue with the query, output the error
+				if (error) throw error;
+				// If the account exists
+				console.log(results);
+				
+				
+				const passwordCompare = await bcrypt.compare(password, results[0].password);
+				if (!passwordCompare) {
+					success = false
+					return res.status(400).json({ success, error: "Please try to login with correct credentials" });
+				}
+				else if (results.length > 0 && passwordCompare) {
+					// Authenticate the user
+					results.map(val => {
+						console.log(val.user);
+						req.session.userr = val.user;
+					});
+					const users1 =results[0].roll;
+					const users2 =results[0].user;
+					console.log("User1",users1);
+					console.log("User2",users2);
+					sessionstorage.setItem("currentloggedin",users1);
+					sessionstorage.setItem("currentuser",users2);
+					const authtoken = jwt.sign(results[0].roll, JWT_SECRET);
+					success = true;
+					//res.json({ success, authtoken })
+
+					req.session.loggedin = true;
+					
+					
+					// Redirect to home page
+					// console.log(results)
+					res.redirect('/shome');
+					//response.render("/shome");
+				} else {
+					res.send('Incorrect Username and/or Password!');
+				}
+				res.end();
+			});
+		} 
+		else {
+			res.send('Please enter Username and Password!');
+			res.end();
+		}
+	
+  });
+  
+
 // http://localhost:3000/auth
-app.post('/sauth', function (request, response) {
+/*app.post('/sauth', function (request, response) {
 	// Capture the input fields
 	let roll = request.body.roll;
 	let password = request.body.password;
@@ -92,10 +161,7 @@ app.post('/sauth', function (request, response) {
 	}
 });
 
-
-
-
-
+*/
 // http://localhhttps://github.com/kbhavana14/gatePassost:3000/signup
 app.post('/ssignup', function (request, response) {
 	// Render login template
@@ -103,11 +169,60 @@ app.post('/ssignup', function (request, response) {
 });
 
 
+app.post('/register',async (req,res)=>{
+    
+	let roll=req.body.roll;
+	let username = req.body.username;
+	let password = req.body.password;
+	let confirm_password = req.body.confirm_password;
 
+	
+	//If error,then return bad request;
+    const errors = validationResult(req);
+
+	if (roll && password && confirm_password && username) {
+
+		// Execute SQL query that'll select the account from the database based on the specified username and password
+		connection.query('SELECT * FROM userTable WHERE roll = ?', [roll], async(error, results, fields)=>{
+			// If there is an issue with the query, output the error
+			if (error) throw error;
+			// If the account exists
+			if (results.length > 1) {
+				res.redirect('/alreadyexists');
+			} 
+			else if (confirm_password != password) {
+				res.redirect('/passnotmatched');
+			} 
+			else {
+				const salt = await bcrypt.genSalt(10);
+				const secPass = await bcrypt.hash(req.body.password, salt);
+				
+				var users = {
+					user: req.body.username,
+					password: secPass,
+					roll:req.body.roll
+				}
+
+				var sql = 'INSERT INTO userTable SET ?';
+				connection.query(sql, users, function (error, results) {
+					if (error) throw error;
+
+				});
+				res.redirect('/afterreg');
+			}
+			res.end();
+		});
+	} else {
+		response.send('Please enter Username and Password!');
+		response.end();
+	}
+
+
+})
 
 
 // http://localhost:3000/register
-app.post('/register', function (request, response) {
+/*app.post('/register', function (request, response) {
 	// Capture the input fields
 	let roll=request.body.roll;
 	let username = request.body.username;
@@ -148,7 +263,7 @@ app.post('/register', function (request, response) {
 		response.end();
 	}
 });
-
+*/
 // http://localhost:3000/tlogin
 app.post('/tlogin', function (request, response) {
 	// Render login template
@@ -256,9 +371,10 @@ app.post('/gauth', function (request, response) {
 // http://localhost:3000/home
 app.get('/home', function (request, response) {
 	// If the user is loggedin
+	var show = sessionstorage.getItem("currentuser");
 	if (request.session.loggedin) {
 		// Output username
-		response.send('Welcome back, ' + request.session.username + '!');
+		response.send('Welcome back, ' + show + '!');
 	} else {
 		// Not logged in
 		response.send('Please login to view this page!');
@@ -281,7 +397,7 @@ app.get('/home', function (request, response) {
 
 // http://localhost:3000/
 app.get('/shome', function (request, response) {
-	var un = request.session.userr;
+	var un = sessionstorage.getItem("currentuser");
 	console.log(un);
 	// Render login template
 	//response.sendFile(path.join(__dirname + '/mainStd.html'));
@@ -294,8 +410,9 @@ app.post('/apply', function (request, response) {
 
 app.post('/filled', function (request, response) {
 	// Render login template
-	var roll = request.body.roll;
-	var name = request.body.name;
+	var roll = sessionstorage.getItem("currentloggedin");
+	// var name = request.body.name;
+	var name = sessionstorage.getItem("currentuser");
 	var date = request.body.date;
 	var section = request.body.section;
 	var hostel = request.body.hostel;
@@ -303,6 +420,8 @@ app.post('/filled', function (request, response) {
 	var reason = request.body.reason;
 	const newId = uuidv4();
 	console.log(newId);
+	console.log("name ",name);
+
 	//response.sendFile(path.join(__dirname + '/filled.ejs'));
 	response.render(__dirname + "/filled.ejs", { roll: roll, name: name, date: date, section: section, hostel:hostel,phnum: phnum, reason: reason,id:newId });
 	var details = {
@@ -316,6 +435,7 @@ app.post('/filled', function (request, response) {
 		id:newId
 
 	}
+
 	var sql = 'INSERT INTO gatepas SET ?';
 	connection.query(sql, details, function (error, results) {
 		if (error) throw error;
@@ -329,7 +449,7 @@ app.post('/update', function (request, response) {
 	console.log(auto)
 	//var location = document.location;
 	var sql = 'UPDATE gatepas SET status = ? where id = ?'
-	connection.query(sql, ['Admin', auto], function (error, results) {
+	connection.query(sql, ['Gate', auto], function (error, results) {
 		if (error) throw error;
 		else {
 			response.redirect("/thome");
@@ -342,12 +462,14 @@ app.post('/update', function (request, response) {
 });
 app.post('/tdecline', function (request, response) {
 	// Render login template
-	var auto = request.body.declining;
+	var auto = request.body.daid;
+	console.log(auto)
 	//var location = document.location;
-	var sql = 'UPDATE gatepas SET status = ? where auto = ?'
+	var sql = 'UPDATE gatepas SET status = ? where id = ?'
 	connection.query(sql, ['Declined from teacher', auto], function (error, results) {
 		if (error) throw error;
 		else {
+			console.log("derror")
 			response.redirect("/thome");
 			//res.json(result);
 		}
@@ -378,8 +500,9 @@ app.post('/hdecline', function (request, response) {
 app.post('/status', function (request, response) {
 	// Render login template
 	// response.sendFile(path.join(__dirname + '/status.html'));
-	var un = request.session.userr;
+	var un = sessionstorage.getItem("currentloggedin");
 	console.log('status', un);
+	// console.log('status', un);
 	connection.query('SELECT * FROM gatepas where roll=?',[un], function (err, rows) {
 		
 		if (err) {
@@ -469,19 +592,42 @@ app.get('/ghome', function (request, response) {
 	});
 });
 
-app.post('/updategate', function (request, response) {
+app.post('/updategate', function(request, response) {
 	// Render login template
-	var auto = request.body.out;
+	var auto = request.body.outid;
+	console.log("auto",auto);
+    //var location = document.location;
+
+	var sql = 'UPDATE gatepas SET status = ? where id = ?'
+	connection.query(sql, ['Out', auto], function (error, results) {
+		console.log(results);
+		if (error) throw error;
+		else{
+			response.redirect("/ghome");
+			//res.json(result);
+		  }
+	});
+	//response.sendFile(path.join(__dirname + '/updated.html'));
+	//response.render(__dirname+"/updated.html");
+	
+});
+/*app.post('/updategate', function (request, response) {
+	// Render login template
+	var auto = request.body.outid;
+	//console.log(auto)
 	//var location = document.location;
-	var sql = 'UPDATE gatepas SET status = ?, outtime = CURRENT_TIMESTAMP where auto = ?'
-	connection.query(sql, ['Approved', auto], function (error, results) {
+	
+	connection.query('UPDATE gatepas SET status = ? where id = ?', ['Approved', auto], function (error, results) {
+		
 		if (error) throw error;
 		else {
 			// response.redirect("/ghome");
-			//res.json(result);
+			console.log(results)
 			var un = request.session.username;
+			console.log(un)
+			
 			connection.query('SELECT * FROM gatepas where roll=?', [un], function (err, rows) {
-		
+		console.log(rows)
 				if (err) {
 					request.flash('error', err);
 					response.render(__dirname + "/status.ejs", { page_title: "Users - Node.js", data: '' });
@@ -497,6 +643,6 @@ app.post('/updategate', function (request, response) {
 	// response.sendFile(path.join(__dirname + '/updated.html'));
 	// response.render(__dirname+"/updated.html");
 
-});
+});*/
 //port number
 app.listen(3000);

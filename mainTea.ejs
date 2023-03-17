@@ -85,7 +85,7 @@ background: linear-gradient(0deg, #F1A222 0%, #F1A222 100%);
 <br>
 <form class="" action="/">
   <td>
-    <a><button type="submit" class="home" >← HOME</button></a>
+    <button type="submit" class="my-2 mx-3 btn btn-success" >← HOME</button>
 </form>
   <table class="table">
 <thead>
@@ -127,9 +127,19 @@ background: linear-gradient(0deg, #F1A222 0%, #F1A222 100%);
         <button type="submit" name="accepting" value="<%= data[i].auto%>" class="cutom-btn btn-2">ACCEPT</button>
     </form>
     <form class="" action="/tdecline" method="post">
+      <input type="text" name="daid" hidden value="<%=data[i].id%>">
         <td><button type="submit" name="declining" value="<%= data[i].auto%>" class="cutom-btn btn-1">DECLINE</button></td>
       </form>  
-    <%} else { %>
+    <%} 
+    else if(data[i].status=='Declined from Clerk'){ %>
+      <div class="container d-flex justify-content-center">
+      <td>
+       <button class="btn btn-danger">Declined</button>
+      </td> 
+      </div>
+      
+     <% } 
+    else { %>
      <div class="container d-flex justify-content-center">
      <td>
       <button class="btn btn-success">Approved</button>

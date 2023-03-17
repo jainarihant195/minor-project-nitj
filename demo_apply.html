@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/b3f4edc17e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="apply.css">
+
+    <!-- <link rel="stylesheet" href="/static/login.css"> -->
+    <title>Student-Login</title>
+</head>
+
+<body>
+    <header id="header-inner">
+        <div class="container">
+            <nav id="main-nav">
+                <i class="fas fa-briefcase fa-2x" id="header-logo"></i>
+                <ul>
+                    <li><a href="/demo2.ejs">Home</a></li>
+                    <form method="post" action="/apply">
+                        <li><a href="/apply" class="current">Apply for Gate Pass</a></li>
+                    </form>
+                    <form method="post" action="/status">
+                        <li><a href="/status">Check Status</a></li>
+                    </form>
+
+                    <form action="/">
+                        <li><a href="">LogOut</a></li>
+                    </form>
+                </ul>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title apply-gate">Apply for Gate Pass</h2>
+        <div class="bottom-line"></div>
+
+        <div class="background">
+            <div class="container">
+                <div class="screen">
+                    <div class="screen-header">
+                        <div class="screen-header-left">
+                            <div class="screen-header-button close"></div>
+                            <div class="screen-header-button maximize"></div>
+                            <div class="screen-header-button minimize"></div>
+                        </div>
+                        <div class="screen-header-right">
+                            <div class="screen-header-ellipsis"></div>
+                            <div class="screen-header-ellipsis"></div>
+                            <div class="screen-header-ellipsis"></div>
+                        </div>
+                    </div>
+                    <div class="screen-body">
+                        <div class="screen-body-item left">
+                            <div class="app-title">
+                                <span>APPLY FOR</span>
+                                <span>GATE PASS</span>
+                            </div>
+                        </div>
+                        <form action="/filled" method="post">
+                            <div class="screen-body-item">
+                                <div class="app-form">
+                                    <div class="app-form-group">
+                                        <input class="app-form-control" placeholder="NAME" type="text" name="name"
+                                            id="name" required>
+                                    </div>
+                                    <div class="app-form-group">
+                                        <input class="app-form-control" placeholder="ROLL" type="text" name="roll"
+                                            id="roll" required>
+                                    </div>
+                                    <div class="app-form-group">
+                                        <input class="app-form-control" placeholder="BRANCH" type="text" name="section"
+                                            id="section" required>
+                                    </div>
+                                    <div class="app-form-group">
+                                        <input class="app-form-control" placeholder="HOSTEL" type="text" name="hostel"
+                                            id="hostel" required>
+                                    </div>
+                                    <div class="app-form-group">
+                                        <input class="app-form-control" placeholder="PHONE NO" type="text" name="phnum"
+                                            id="phnum" required>
+                                    </div>
+                                    <div class="app-form-group date">
+                                        <input class="app-form-control" type="date" name="date" placeholder='FROM'
+                                            id="date" required>
+                                    </div>
+                                    <br><br>
+                                    <div class="app-form-group message">
+                                        <input class="app-form-control" placeholder="REASON" type="text" name="reason"
+                                            id="reason" required>
+                                    </div>
+                                    <div class="app-form-group buttons">
+                                        <button class="app-form-button">CANCEL</button>
+                                        <button class="app-form-button" type="submit">SUBMIT</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- Footer -->
+        <footer id="main-footer">
+            <div class="footer-content">
+                <p>Copyright &copy; 2023, All Rights Reserved</p>
+                <div class="social">
+                    <a href="/" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="/" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="/" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </footer>
+
+
+        <!-- Main Script File -->
+        <script src="./index.js"></script>
+
+</body>
+
+</html>
