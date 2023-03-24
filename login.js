@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'static')));
 // http://localhost:3000/
 app.get('/', function(request, response) {
 	// Render login template
-	response.sendFile(path.join(__dirname + '/login.html'));
+	response.sendFile(path.join(__dirname + '/demo.html'));
 });
 
 // http://localhost:3000/auth
