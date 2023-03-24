@@ -1,0 +1,19 @@
+.main{
+display:"none";
+height: '500px'; 
+width: '400px'; 
+justify-content: 'center';
+background: 'radial-gradient(ellipse farthest-corner at center top, #ECECEC, #999)';
+color: '#363c44'; 
+font-size: '14px';
+font-family: 'sans-serif';
+}
+.token{
+    position: 'relative'; 
+    width: '350px'; 
+    height: '442px'; 
+    background: 'white'; 
+    border-radius: '12px'; 
+    box-shadow: '0 5px 30px rgba(0, 0, 0, 0.2)'; 
+    margin: '30px';
+}

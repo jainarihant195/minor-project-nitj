@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/b3f4edc17e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="apply.css">
+    
+    <!-- <link rel="stylesheet" href="/static/login.css"> -->
+    <title>Download Gate Pass</title>
+<style>
+.downtn{    
+    display: inline-block;
+    height: 3rem;
+    width: 7rem;
+    margin-top: 2rem;
+    margin-left: 20vw;
+}
+.canvas{ margin-top: 3rem;}
+/* .gate_qr_height{
+    margin-top: -5.5rem;
+    max-height: 88.5vh;
+} */
+</style>
+</head>
+<body>
+
+    <header id="header-inner">
+        <div class="container ">
+            <nav id="main-nav">
+                <i class="fas fa-briefcase fa-2x" id="header-logo"></i>
+                <ul>
+                    <li><a href="/shome" >Home</a></li>
+                    <form method="post" action="/apply">
+                        <li><a href="/apply">Apply for Gate Pass</a></li>
+                     </form>
+                     <form method="post" action="/status">
+                        <li><a href="/status" class="current">Check Status</a></li>
+                     </form>
+                  
+                     <form  action="/">
+                        <li><a href="/">LogOut</a></li>
+                     </form>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="container gate_qr_height">
+        <!-- <h2 class="section-title apply-gate">Gate Pass</h2>
+        <div class="bottom-line"></div> -->
+
+        <div class="background ">
+            <!-- <button onclick="downloadtoken()">Download</button> -->
+            <div class="container">
+                <div class="screen" id="capture">
+                    <div class="screen-header">
+                        <div class="screen-header-left">
+                            <div class="screen-header-button close"></div>
+                            <div class="screen-header-button maximize"></div>
+                            <div class="screen-header-button minimize"></div>
+                        </div>
+                        <div class="screen-header-right">
+                            <div class="screen-header-ellipsis"></div>
+                            <div class="screen-header-ellipsis"></div>
+                            <div class="screen-header-ellipsis"></div>
+                        </div>
+                    </div>
+                    <div class="screen-body">
+                        <div class="screen-body-item left">
+                            <div class="app-title">
+                                <span>GATE PASS</span>
+                            </div>
+                            <div class="canvas"><canvas id="canvas"></canvas></div>
+                        </div>
+                        <!-- <form action="/filled" method="post"></form> -->
+                            <div class="screen-body-item">
+                                <div class="app-form ">
+                                    <div class="app-form-group ">
+                                        <p>Name : <%= data[0].name%></p>
+                                    </div>
+                                    <div class="app-form-group">
+                                        <p>Roll : <%= data[0].roll%></p>
+                                    </div>
+                                    <div class="app-form-group">
+                                        <p>Branch :<%= data[0].section%></p>
+                                    </div>
+                                    <div class="app-form-group">
+                                        <p>Hostel : <%= data[0].hostel%></p>
+                                    </div>
+                                    <div class="app-form-group">
+                                        <p> Phone Number: <%= data[0].phnum%> </p>
+                                    </div>
+                                    <div class="app-form-group dis">
+                                        <p id="gateid"> <%= data[0].id%> </p>
+                                    </div>
+                                    <div class="app-form-group">
+                                        <p> Date: <%= data[00].date%></p>
+                                    </div>
+                                    <div class="app-form-group">
+                                        <p> Reason: <%= data[0].reason%> </p>
+                                    </div>
+                                </div>
+                            </div>
+                        <!-- </form> -->
+                        
+
+                    </div>
+                </div>
+                <button class="btn downtn" onclick="downloadtoken()"><i class="fa fa-download"></i> Download</button>
+            </div>
+            
+        </div>
+    </div>
+
+    <footer id="main-footer">
+        <div class="footer-content">
+            <p>Copyright &copy; 2023, All Rights Reserved</p>
+            <div class="social">
+                <a href="https://twitter.com/NITJofficial" target="_blank"><i class="fab fa-twitter" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-facebook" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-instagram" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-linkedin" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-github" style="display: inline;"></i></a>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="qrcode.js"></script>
+    <script type="text/javascript" src="qrcode2.js">
+console.log('chalta')
+
+    </script>
+    <script src="htmltocanvas.js"></script>
+    <script>
+        let gateid=document.getElementById('gateid').innerHTML
+        QRCode.toCanvas(document.getElementById('canvas'), gateid, function (error) {
+    if (error) console.error(error)
+    console.log('success!');
+  })
+
+  function downloadtoken(){
+    html2canvas(document.getElementById("capture")).then(
+        canvas => {
+    // document.body.appendChild(canvas)
+    var link = document.createElement('a');
+  link.download = 'filename.png';
+  link.href = canvas.toDataURL()
+  link.click();
+}
+);
+ 
+}
+    </script>
+    </body>
+    </html>

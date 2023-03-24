@@ -51,7 +51,8 @@
                 <th scope="col" class="px-4 py-1 "> Name </th>
                 <th scope="col" class="px-4 py-1 "> Branch </th>
                 <th scope="col" class="px-4 py-1 "> Hostel </th>
-                <th scope="col" class="px-4 py-1 "> Date </th>
+                <th scope="col" class="px-4 py-1 "> From </th>
+                <th scope="col" class="px-4 py-1 "> To </th>
                 <th scope="col" class="px-4 py-1 "> Reason </th>
                 <th scope="col" class="px-4 py-1 "> Phone No </th>
                 
@@ -71,21 +72,15 @@
               <td class="px-6 py-4"><%= data[i].section%></td>
               <td class="px-6 py-4"><%= data[i].hostel%></td>
               <td class="px-6 py-4"><%= data[i].date %></td>
+              <td class="px-6 py-4"><%= data[i].dateout %></td>
               <td class="px-6 py-4"><%= data[i].reason%></td>
               <td class="px-6 py-4"><%= data[i].phnum%></td>
               <td class="px-6 py-4"><%= data[i].status%></td>
               <!-- <td class="px-6 py-4">
                 <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
             </td> -->
-            
-          
-               
-              
-            
             </tr>
-            <% 
-             
-          }
+            <%}
           
                      
              }else{ %>
@@ -105,14 +100,15 @@
         <div class="footer-content">
             <p>Copyright &copy; 2023, All Rights Reserved</p>
             <div class="social">
-                <a href="/" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="/" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="/" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="/" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://twitter.com/NITJofficial" target="_blank"><i class="fab fa-twitter" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-facebook" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-instagram" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-linkedin" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-github" style="display: inline;"></i></a>
             </div>
         </div>
     </footer>
+
 
     <!-- Typewriter Effect -->
     <script src="resources/js/typewriter.js"></script>

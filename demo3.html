@@ -9,16 +9,20 @@
     <link rel="stylesheet" href="new.css">
     <!-- <link rel="stylesheet" href="/static/login.css"> -->
     <title>Student-Login</title>
+    
+    
 </head>
 <body>
     <header id="header-inner">
         <div class="container">
             <nav id="main-nav">
-                <i class="fas fa-briefcase fa-2x" id="header-logo"></i>
+                <div class="container1">
+                    <a href="https://www.nitj.ac.in/" target="_blank"><img src="nitjlogo.png"  alt="NITJ" height="60px" width="20px"></a>       
+                </div>
                 <ul>
                     <li><a href="/" >Home</a></li>
                     <form method="post" action="/slogin">
-                        <li><a href="/slogin" class="current">Student Login</a></li>
+                        <li><a href="/slogin" class="current">Student</a></li>
                      </form>
                     <form method="post" action="/tlogin">
                         <li><a href="/tlogin">Hostel</a></li>
@@ -27,7 +31,7 @@
                         <li><a href="/hlogin">Admin</a></li>
                      </form>
                     <form method="post" action="/glogin">
-                        <li><a href="/glogin">Gate Keeper</a></li>
+                        <li><a href="/glogin">Gate</a></li>
                      </form>
                
                 </ul>
@@ -35,12 +39,12 @@
     </header>
 
     <!-- <section id="contact-a" class="text-center py-2"> -->
-        <div class="maindiv">
+        <div class="maindiv" style="height:36.4rem;">
         <div class="main">  	
             
             <input type="checkbox" id="chk" aria-hidden="true">
             <div class="signup">
-                <form action="/sauth" method="post">
+                <form action="/shome" method="post">
                     <label for="chk" aria-hidden="true">Login</label>
                     <input type="text" name="roll" placeholder="Roll No." id="roll" required>
                     <input type="password" name="password" placeholder="Password" id="password" required>
@@ -52,9 +56,10 @@
                 <form action="/register" method="post">
                     <label for="chk" aria-hidden="true">Sign up</label>
                     <input type="text" name="username" placeholder="Enter your name" id="username" required>
-                    <input type="text" name="roll" placeholder="Enter your 8 digit roll no." id="roll" required>
-                    <input type="password" name="password" placeholder="Password" id="password" required>
+                    <input type="text" name="roll" placeholder="Enter your 8 digit roll no." id="roll"  required>
+                    <input type="password" name="password" placeholder="Password" id="password"  required>
                     <input type="password" name="confirm_password" placeholder="Confirm Password" id="password" required>
+                    
                     <button type="submit">Sign up</button>
                   </form>
                 </div>
@@ -64,21 +69,22 @@
     </div>
     <!-- </section> -->
 
-    <!-- Section B: Contact Info -->
+
     
     <!-- Footer -->
     <footer id="main-footer">
         <div class="footer-content">
             <p>Copyright &copy; 2023, All Rights Reserved</p>
             <div class="social">
-                <a href="/" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="/" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="/" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="/" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://twitter.com/NITJofficial" target="_blank"><i class="fab fa-twitter" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-facebook" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-instagram" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-linkedin" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-github" style="display: inline;"></i></a>
             </div>
         </div>
     </footer>
+
 
     <!-- Main Script File -->
     <script src="./index.js"></script>

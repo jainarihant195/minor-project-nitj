@@ -8,7 +8,13 @@
     <script src="https://kit.fontawesome.com/b3f4edc17e.js" crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="table.css">
+    
     <title>Hostel</title>
+    <style>
+        .mini {
+            min-height: 32rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -17,9 +23,12 @@
         <div class="container">
             <nav id="main-nav">
                 <i class="fas fa-briefcase fa-2x" id="header-logo"></i>
+                
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <form method="post" action="/slogin">
+                    <form method="post" action="/">
+                        <li><a href="/" >Home</a></li>
+                     </form>
+                     <form method="post" action="/slogin">
                         <li><a href="/slogin">Student Login</a></li>
                      </form>
                     <form method="post" action="/tlogin">
@@ -41,7 +50,7 @@
   <div class="container"> 
     <h2 class="section-title">Approve Gate Pass</h2>
     <div class="bottom-line"></div>
- 
+ <div class="mini">
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 text-center">
         <thead class="text-xs text-gray-700 uppercase bg-black-50 dark:bg-gray-700 dark:text-gray-400">
@@ -51,7 +60,8 @@
                 <th scope="col" class="px-4 py-1 "> Name </th>
                 <th scope="col" class="px-4 py-1 "> Branch </th>
                 <th scope="col" class="px-4 py-1 "> Hostel </th>
-                <th scope="col" class="px-4 py-1 "> Date </th>
+                <th scope="col" class="px-4 py-1 "> From </th>
+                <th scope="col" class="px-4 py-1 "> To </th>
                 <th scope="col" class="px-4 py-1 "> Reason </th>
                 <th scope="col" class="px-4 py-1 "> Phone No </th>
                 
@@ -71,6 +81,7 @@
               <td class="px-6 py-4"><%= data[i].section%></td>
               <td class="px-6 py-4"><%= data[i].hostel%></td>
               <td class="px-6 py-4"><%= data[i].date %></td>
+              <td class="px-6 py-4"><%= data[i].dateout %></td>
               <td class="px-6 py-4"><%= data[i].reason%></td>
               <td class="px-6 py-4"><%= data[i].phnum%></td>
               <!-- <td class="px-6 py-4">
@@ -124,20 +135,21 @@
     </table>
 </div>
 </div>
-    
+</div>
     <!-- Footer -->
     <footer id="main-footer">
         <div class="footer-content">
             <p>Copyright &copy; 2023, All Rights Reserved</p>
             <div class="social">
-                <a href="/" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="/" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="/" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="/" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://twitter.com/NITJofficial" target="_blank"><i class="fab fa-twitter" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-facebook" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-instagram" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-linkedin" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-github" style="display: inline;"></i></a>
             </div>
         </div>
     </footer>
+
 
     <!-- Typewriter Effect -->
     <script src="resources/js/typewriter.js"></script>

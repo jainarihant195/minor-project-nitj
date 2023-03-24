@@ -8,7 +8,13 @@
     <script src="https://kit.fontawesome.com/b3f4edc17e.js" crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="table.css">
+    <link rel="stylesheet" href="apply.css">
     <title>Hostel</title>
+    <style>
+        .mini {
+            min-height: 32rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -21,92 +27,165 @@
                     <li><a href="/shome" class="current">Home</a></li>
                     <form method="post" action="/apply">
                         <li><a href="/apply">Apply for Gate Pass</a></li>
-                     </form>
-                     <form method="post" action="/status">
+                    </form>
+                    <form method="post" action="/status">
                         <li><a href="/status">Check Status</a></li>
-                     </form>
-                  
-                     <form  action="/">
+                    </form>
+
+                    <form action="/">
                         <li><a href="/">LogOut</a></li>
-                     </form>
+                    </form>
                 </ul>
             </nav>
         </div>
     </header>
-    <div class="container"> 
+    <div class="container">
         <h2 class="section-title">Status of Gate Pass </h2>
         <div class="bottom-line"></div>
-     
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 text-center">
-            <thead class="text-xs text-gray-700 uppercase bg-black-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    <th scope="col" class="abc"> S.No </th>
-                    <th scope="col" class="px-4 py-1 "> Roll No. </th>
-                    <th scope="col" class="px-4 py-1 "> Name </th>
-                    <th scope="col" class="px-4 py-1 "> Branch </th>
-                    <th scope="col" class="px-4 py-1 "> Hostel </th>
-                    <th scope="col" class="px-4 py-1 "> Date </th>
-                    <th scope="col" class="px-4 py-1 "> Reason </th>
-                    <th scope="col" class="px-4 py-1 "> Status </th>
-                    <th scope="col" class="px-4 py-1 "> Phone No </th>
-                    <th scope="col" class="px-4 py-1 "> Action </th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-            <% if(data.length){
-     
-                for(var i = 0; i< data.length; i++) {%>  
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    
-                  <td class="abc"><%= (i+1) %></td>
-                  <td class="px-6 py-4"><%= data[i].roll%></td>
-                  <td class="px-6 py-4"><%= data[i].name%></td>
-                  <td class="px-6 py-4"><%= data[i].section%></td>
-                  <td class="px-6 py-4"><%= data[i].hostel%></td>
-                  <td class="px-6 py-4"><%= data[i].date %></td>
-                  <td class="px-6 py-4"><%= data[i].reason%></td>
-                  <td class="px-6 py-4" id="status"><%= data[i].status%></td>
-                  <td class="px-6 py-4"><%= data[i].phnum%></td>
-                  <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Download</a>
-                </td>
-                
-              </tr>      
-              <% }
-                 }else{ %>
-                     <tr>
-                        <td colspan="3">No user</td>
-                     </tr>
-                  <% } %> 
-                  
-    
-            </tbody>
-        </table>
+        <div class="mini">
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 text-center">
+                    <thead class="text-xs text-gray-700 uppercase bg-black-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="abc"> S.No </th>
+                            <th scope="col" class="px-4 py-1 "> Roll No. </th>
+                            <th scope="col" class="px-4 py-1 "> Name </th>
+                            <th scope="col" class="px-4 py-1 "> Branch </th>
+                            <th scope="col" class="px-4 py-1 "> Hostel </th>
+                            <th scope="col" class="px-4 py-1 "> Date </th>
+                            <th scope="col" class="px-4 py-1 "> Reason </th>
+                            <th scope="col" class="px-4 py-1 "> Status </th>
+                            <th scope="col" class="px-4 py-1 "> Phone No </th>
+                            <th scope="col" class="px-4 py-1 "> Action </th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                       
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    </div>
-    
     <!-- Footer -->
     <footer id="main-footer">
         <div class="footer-content">
             <p>Copyright &copy; 2023, All Rights Reserved</p>
             <div class="social">
-                <a href="/" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="/" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="/" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="/" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://twitter.com/NITJofficial" target="_blank"><i class="fab fa-twitter"
+                        style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-facebook" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-instagram" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-linkedin" style="display: inline;"></i></a>
+                <a href="/" target="_blank"><i class="fab fa-github" style="display: inline;"></i></a>
             </div>
         </div>
     </footer>
 
+
     <!-- Typewriter Effect -->
-    <script src="resources/js/typewriter.js"></script>
+    <!-- <script src="resources/js/typewriter.js"></script> -->
 
     <!-- Main Script File -->
-    <script src="./index.js"></script>
+    <!-- <script src="./index.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>
-    <script src="../path/to/flowbite/dist/flowbite.min.js"></script> 
+    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+    <script>
+
+        const upout = async () => {
+            let un = sessionStorage.getItem("roll");
+
+            console.log(un)
+            const response = await fetch("http://localhost:3000/status", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+
+                },
+                body: JSON.stringify({ un: un })
+            })
+            const json = await response.json()
+            console.log(json)
+            let tbody = document.getElementById('tbody')
+
+            if(json.rows.length===0)
+            {tbody.innerHTML=`<tr>
+                                    <td colspan="3">No Data available</td>
+                                </tr>`}
+
+
+            for (let i = 0; i < json.rows.length; i++) {
+                tbody.innerHTML = tbody.innerHTML + `
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+<td class="abc">
+    ${i + 1}
+</td>
+<td class="px-6 py-4">
+    
+    ${json.rows[i].roll}
+    </td>
+    <td class="px-6 py-4">
+        ${json.rows[i].name}
+        </td>
+        <td class="px-6 py-4">
+            ${json.rows[i].section}
+            
+            </td>
+            <td class="px-6 py-4 ">
+                ${json.rows[i].hostel}
+                
+                </td>
+                <td class="px-6 py-4">
+                    ${json.rows[i].date}
+                   
+                    </td>
+                    <td class="px-6 py-4">
+                        ${json.rows[i].reason}
+                        
+                        </td>
+                        <td class="px-6 py-4 status" id="${i}">
+                            ${json.rows[i].status}
+                           
+                            </td>
+                            <td class="px-6 py-4">
+                                ${json.rows[i].phnum}
+    
+</td>
+
+
+
+    <td class="px-6 py-4">
+        <form class="" action="/download" method="post" target="_blank">
+        <input type="text" name="aid" hidden value="${json.rows[i].id}">
+        <button type="submit" name="download" id="a${i}" 
+            class="font-medium text-blue-600 dark:text-blue-500 hover:underline" >Download</button>
+        </form>
+    </td>
+
+
+</tr>
+`
+var status = document.getElementById(i).innerHTML;
+                                var btn = document.getElementById("a"+i);
+                                    console.log(btn)
+                                if (status.trim() !== "Approved") {
+                                    btn.disabled = true;
+                                    btn.style.cursor = "not-allowed";
+                                    console.log("not approved")
+                                }
+                                if (status.trim() === "Approved") {
+                                    btn.disabled = false;
+                                    btn.style.cursor = "pointer";
+                                    console.log("Working")
+                                }
+
+
+    }
+    }
+    upout()
+    </script>
 </body>
+
 </html>

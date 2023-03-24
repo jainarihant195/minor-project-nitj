@@ -17,7 +17,9 @@
     <header id="header-inner">
         <div class="container">
             <nav id="main-nav">
-                <i class="fas fa-briefcase fa-2x" id="header-logo"></i>
+                <div class="container1">
+                    <a href="https://www.nitj.ac.in/" target="_blank"><img src="nitjlogo.png"  alt="NITJ" height="60px" width="20px"></a>       
+                </div>
                 <ul>
                     <li><a href="/demo2.ejs">Home</a></li>
                     <form method="post" action="/apply">
@@ -35,8 +37,8 @@
     </header>
 
     <div class="container">
-        <h2 class="section-title apply-gate">Apply for Gate Pass</h2>
-        <div class="bottom-line"></div>
+        <!-- <h2 class="section-title apply-gate">Apply for Gate Pass</h2>
+        <div class="bottom-line"></div> -->
 
         <div class="background">
             <div class="container">
@@ -63,13 +65,13 @@
                         <form action="/filled" method="post">
                             <div class="screen-body-item">
                                 <div class="app-form">
-                                    <div class="app-form-group">
+                                    <div class="app-form-group" style="display:none">
                                         <input class="app-form-control" placeholder="NAME" type="text" name="name"
-                                            id="name" required>
+                                            id="name" style="display:none">
                                     </div>
-                                    <div class="app-form-group">
+                                    <div class="app-form-group" style="display:none">
                                         <input class="app-form-control" placeholder="ROLL" type="text" name="roll"
-                                            id="roll" required>
+                                            id="roll" style="display:none">
                                     </div>
                                     <div class="app-form-group">
                                         <input class="app-form-control" placeholder="BRANCH" type="text" name="section"
@@ -86,6 +88,10 @@
                                     <div class="app-form-group date">
                                         <input class="app-form-control" type="date" name="date" placeholder='FROM'
                                             id="date" required>
+                                    </div>
+                                    <div class="app-form-group date">
+                                        <input class="app-form-control" type="date" name="dateout" placeholder='TO'
+                                            id="dateout" required>
                                     </div>
                                     <br><br>
                                     <div class="app-form-group message">
@@ -111,19 +117,37 @@
             <div class="footer-content">
                 <p>Copyright &copy; 2023, All Rights Reserved</p>
                 <div class="social">
-                    <a href="/" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="/" target="_blank"><i class="fab fa-facebook"></i></a>
-                    <a href="/" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="/" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="/https://twitter.com/NITJofficial" target="_blank"><i class="fab fa-twitter" style="display: inline;"></i></a>
+                    <a href="/" target="_blank"><i class="fab fa-facebook" style="display: inline;"></i></a>
+                    <a href="/" target="_blank"><i class="fab fa-instagram" style="display: inline;"></i></a>
+                    <a href="/" target="_blank"><i class="fab fa-linkedin" style="display: inline;"></i></a>
+                    <a href="/" target="_blank"><i class="fab fa-github" style="display: inline;"></i></a>
                 </div>
             </div>
         </footer>
 
+<script>
 
-        <!-- Main Script File -->
-        <script src="./index.js"></script>
-
+if (sessionStorage.getItem("user")!==null) {
+    console.log(sessionStorage.getItem("user"))
+    if(sessionStorage.getItem("user")==="null"){
+        sessionStorage.clear();
+        // if(window.location.href==='http://localhost:3000/shome')
+        window.location.replace('http://localhost:3000/slogin')
+        // else window.location.replace('http://192.168.43.237:3000/slogin')
+        
+    }
+    // console.log('roll: ',roll);
+    document.getElementById('roll').value= sessionStorage.getItem("roll");
+    document.getElementById('name').value= sessionStorage.getItem("user");
+}
+else{
+    console.log('else');
+    //if(window.location.href==='http://localhost:3000/shome') 
+    window.location.replace('http://localhost:3000/slogin')
+    // else window.location.replace('http://192.168.43.237:3000/slogin')
+}
+</script>
 </body>
 
 </html>
