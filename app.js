@@ -18,12 +18,15 @@ const QrScanner = require('qr-scanner');
 
 var ls = require('local-storage');
 
-const connection = mysql.createConnection({
-	host: process.env.HOST,
-	user: process.env.DATABASE_USER,
-	password: process.env.PASSWORD,
-	database: process.env.DATABASE
-});
+const connection = mysql.createConnection(process.env.URI);
+// const connection = mysql.createConnection({
+// 	host: process.env.HOST,
+// 	user: process.env.DATABASE_USER,
+// 	password: process.env.PASSWORD,
+// 	database: process.env.DATABASE,
+// 	port:process.env.PORT,
+	
+// });
 const app = express();
 app.use(session({
 	secret: 'secret',
@@ -205,7 +208,7 @@ app.post('/register',async (req,res)=>{
 		if (roll && password && confirm_password && username) {
 	
 			// Execute SQL query that'll select the account from the database based on the specified username and password
-			connection.query('SELECT * FROM userTable WHERE roll = ?', [roll], async(error, results, fields)=>{
+			connection.query('SELECT * FROM usertable WHERE roll = ?', [roll], async(error, results, fields)=>{
 				// If there is an issue with the query, output the error
 				if (error) throw error;
 				// If the account exists
@@ -234,7 +237,7 @@ app.post('/register',async (req,res)=>{
 						
 					}
 					
-					var sql = 'INSERT INTO userTable SET ?';
+					var sql = 'INSERT INTO usertable SET ?';
 					connection.query(sql, users, function (error, results) {
 						if (error) throw error;
 						
