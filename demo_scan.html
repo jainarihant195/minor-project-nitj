@@ -69,15 +69,14 @@
             <div class="footer-content">
                 <p>Copyright &copy; 2023, All Rights Reserved</p>
                 <div class="social">
-                    <a href="/https://twitter.com/NITJofficial" target="_blank"><i class="fab fa-twitter" style="display: inline;"></i></a>
-                    <a href="/" target="_blank"><i class="fab fa-facebook" style="display: inline;"></i></a>
-                    <a href="/" target="_blank"><i class="fab fa-instagram" style="display: inline;"></i></a>
-                    <a href="/" target="_blank"><i class="fab fa-linkedin" style="display: inline;"></i></a>
-                    <a href="/" target="_blank"><i class="fab fa-github" style="display: inline;"></i></a>
+                    <a href="https://twitter.com/NITJofficial" target="_blank"><i class="fab fa-twitter" style="display: inline;"></i></a>
+                    <a href="https://www.facebook.com/NITJofficial/" target="_blank"><i class="fab fa-facebook" style="display: inline;"></i></a>
+                    <a href="https://www.instagram.com/nitjofficial/" target="_blank"><i class="fab fa-instagram" style="display: inline;"></i></a>
+                    <a href="https://www.linkedin.com/school/dr-b-r-ambedkar-national-institute-of-technology-jalandhar-official/" target="_blank"><i class="fab fa-linkedin" style="display: inline;"></i></a>
+                    <a href="https://github.com/GDSC-NITJ/" target="_blank"><i class="fab fa-github" style="display: inline;"></i></a>
                 </div>
             </div>
         </footer>
-
 
         <!-- Main Script File -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js" integrity="sha512-k/KAe4Yff9EUdYI5/IAHlwUswqeipP+Cp5qnrsUjTPCgl51La2/JhyyjNciztD7mWNKLSXci48m7cctATKfLlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -97,8 +96,8 @@
             // Starts scanner
         
             function success(result) {
-document.getElementById('outid').innerHTML=result
-upout()
+                document.getElementById('outid').innerHTML=result
+                upout()
                 
                 document.getElementById('result').innerHTML = `
                 <h2>Success!</h2>
@@ -118,7 +117,7 @@ upout()
                 let outidd=document.getElementById('outid').innerHTML
                 outidd=outidd.slice(1,37)
                 console.log(outidd,outidd.l)
-                const response=await fetch("http://192.168.43.237:3000/updategate",{
+                const response=await fetch("http://https://gate-pass-nitj.onrender.com/updategate",{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json',

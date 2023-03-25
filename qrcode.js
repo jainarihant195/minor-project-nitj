@@ -5,7 +5,7 @@ const QRCode = require('qrcode')
 let data = {
     name:"Employee Name",
     age:27,
-    department:"Police",
+    department:"NIT",
     id:"aisuoiqu3234738jdhf100223"
 }
  
