@@ -7,6 +7,7 @@
     <script src="https://kit.fontawesome.com/b3f4edc17e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="new.css">
+    <link rel="stylesheet" href="alert.css">
     <!-- <link rel="stylesheet" href="/static/login.css"> -->
     <title>Student-Login</title>
     
@@ -39,9 +40,29 @@
     </header>
 
     <!-- <section id="contact-a" class="text-center py-2"> -->
+        <% if (message!==null) { %>
+            <div class="alert error disp">
+                <input type="checkbox" id="alert1"/>
+            <label class="close" title="close" for="alert1">
+              <i class="icon-remove"></i>
+            </label>
+                <p class="inner para">
+                    <%=message%>
+                </p>
+            </div>
+            <%}else { %>
+                <div class="alert error disp2">
+                    <input type="checkbox" id="alert1"/>
+                <label class="close" title="close" for="alert1">
+                  <i class="icon-remove"></i>
+                </label>
+
+                </div>
+                    <% } %>
+                 
+             %>
         <div class="maindiv" style="height:36.4rem;">
         <div class="main">  	
-            
             <input type="checkbox" id="chk" aria-hidden="true">
             <div class="signup">
                 <form action="/shome" method="post">

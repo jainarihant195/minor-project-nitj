@@ -136,13 +136,13 @@
             </div>
         </div>
     </footer>
-    
+
     <script>
         function myFunction(){
             sessionStorage.clear();
-            // if(window.location.href==='http://localhost:3000/shome') window.location.replace('http://localhost:3000/')
-            // else window.location.replace('http://192.168.43.237:3000/')
-            window.location.replace('https://gate-pass-nitj.onrender.com/')
+            if(window.location.href==='http://localhost:3000/shome') window.location.replace('http://localhost:3000/')
+            else window.location.replace('http://192.168.43.237:3000/')
+            // window.location.replace('https://gate-pass-nitj.onrender.com/')
             
         }
         const upout=async()=>{
@@ -159,8 +159,8 @@
                 // })
                 // const json=await response
                 // console.log(json)
-                // window.location.replace('http://localhost:3000/status')
-                window.location.replace('https://gate-pass-nitj.onrender.com/status')
+                window.location.replace('http://localhost:3000/status')
+                // window.location.replace('https://gate-pass-nitj.onrender.com/status')
             }
 
 

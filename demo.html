@@ -103,17 +103,18 @@
         <script>
             function myFunction(){
                 sessionStorage.clear();
-                // if(window.location.href.slice(0,21)==='http://localhost:3000/') window.location.replace('http://localhost:3000/')
-                // else window.location.replace('http://192.168.43.237:3000/')
+                if(window.location.href.slice(0,21)==='http://localhost:3000/') window.location.replace('http://localhost:3000/')
+                else window.location.replace('http://192.168.43.237:3000/')
                 
-                window.location.replace('https://gate-pass-nitj.onrender.com/')
+                // window.location.replace('https://gate-pass-nitj.onrender.com/')
                 
             }
             function myFunction2(){
                 sessionStorage.clear();
                 // if(window.location.href.slice(0,21)==='http://localhost:3000/') 
-                window.location.replace('https://gate-pass-nitj.onrender.com/slogin')
-                // window.location.replace('http://localhost:3000/slogin')
+                // window.location.replace('https://gate-pass-nitj.onrender.com/slogin')
+                window.location.replace('http://localhost:3000/slogin')
+                // else window.location.replace('http://192.168.43.237:3000/slogin')
                 
             }
         </script>

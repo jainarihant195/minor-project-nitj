@@ -48,7 +48,7 @@ app.use(
 app.use(flash());
 
 
-// http://localhost:3000/
+// http://localhost:3000/->No login Required
 app.get('/', function (request, response) {
 	// ls.removeItem("currenthostel");
 	// ls.removeItem("currentadmin");
@@ -59,30 +59,33 @@ app.get('/', function (request, response) {
 	response.sendFile(path.join(__dirname + '/demo.html'));
 });
 
-// http://localhost:3000/slogin
+// http://localhost:3000/slogin->No login Required
 app.get('/slogin', function (request, response) {
 
 	// ls.removeItem("currenthostel");
 	
 	// Render login template
 	// response.sendFile(path.join(__dirname + '/login.html'));
-	response.sendFile(path.join(__dirname + '/demo3.html'));
+	response.render(__dirname + "/demo3.ejs", { message:"" });
 });
-
+// Login Required
 app.post('/shome', async (req, res) => {
-	let success = false;
-	let roll = req.body.roll;
-	let password = req.body.password;
-	let user=req.body.user;
-	// If there are errors, return Bad request and the errors
-	const errors = validationResult(req);
-	if (!errors.isEmpty()) {
-	  return res.status(400).json({ errors: errors.array() });
-	}
-
+	try{
+		let success = false;
+		let roll = req.body.roll;
+		let password = req.body.password;
+		let user=req.body.user;
+		// If there are errors, return Bad request and the errors
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
+		
 		if (!roll || !password) {
-			success = false
-			return res.status(400).json({ error: "Please try to login with correct credentials" });
+			success = false;
+			var message="  Please Login with correct Credentials";
+			res.render(__dirname + "/demo3.ejs", { message:message });
+			
 		}
 		
 		if (roll && password) {
@@ -97,7 +100,9 @@ app.post('/shome', async (req, res) => {
 				const passwordCompare = await bcrypt.compare(password, results[0].password);
 				if (!passwordCompare) {
 					success = false
-					return res.status(400).json({ success, error: "Please try to login with correct credentials" });
+					var message="  Please Login with correct Credentials";
+					res.render(__dirname + "/demo3.ejs", { message:message });
+
 				}
 				else if (results.length > 0 && passwordCompare) {
 					// Authenticate the user
@@ -107,19 +112,11 @@ app.post('/shome', async (req, res) => {
 					});
 					const users1 =results[0].roll;
 					const users2 =results[0].user;
-					console.log("User1",users1);
-					console.log("User2",users2);
-					ls.set("currentloggedin",users1);
-					// ls.set("currentuser",users2);
 					const authtoken = jwt.sign(results[0].roll, JWT_SECRET);
 					success = true;
-					//res.json({ success, authtoken })
-
+					// res.json({ success, authtoken })
 					req.session.loggedin = true;
 					
-					
-					// Redirect to home page
-					// console.log(results)
 					var data={
 						name: results[0].user,
 						roll:results[0].roll
@@ -127,28 +124,37 @@ app.post('/shome', async (req, res) => {
 					}
 					console.log(data.roll);
 					res.render(__dirname + "/demo2.ejs", { data:data });
-					// response.render("/shome");
+					
 				} else {
-					res.send('Incorrect Username and/or Password!');
+					var message="Please Login with correct Credentials";
+					res.render(__dirname + "/demo3.ejs", { message:message });
+
 				}
 				res.end();
 			});
 		} 
 		else {
-			res.send('Please enter Username and Password!');
+			var message="  Please Login with correct Credentials";
+			res.render(__dirname + "/demo3.ejs", { message:message });
 			res.end();
 		}
-	
+	}
+	catch{
+		var message="  Please Login with correct Credentials";
+		res.render(__dirname + "/demo3.ejs", { message:message });
+		res.end();
+
+	}
   });
   
-
-// http://localhost:3000/auth
-/*app.post('/sauth', function (request, response) {
-	// Capture the input fields
-	let roll = request.body.roll;
-	let password = request.body.password;
-	let user=request.body.user;
-	// Ensure the input fields exists and are not empty
+  
+  // http://localhost:3000/auth
+  /*app.post('/sauth', function (request, response) {
+	  // Capture the input fields
+	  let roll = request.body.roll;
+	  let password = request.body.password;
+	  let user=request.body.user;
+	  // Ensure the input fields exists and are not empty
 	console.log(roll);
 	console.log(password);
 	console.log(user);
@@ -183,15 +189,15 @@ app.post('/shome', async (req, res) => {
 });
 
 */
-// http://localhhttps://github.com/kbhavana14/gatePassost:3000/signup
+// http://localhhttps://github.com/kbhavana14/gatePassost:3000/signup->No login Required
 app.post('/ssignup', function (request, response) {
 	// Render login template
 	response.sendFile(path.join(__dirname + '/signup.html'));
 });
 
-
-app.post('/register',async (req,res)=>{
-    try{
+//No Login Required
+app.post('/register',function (req,res){
+    
 		let roll=req.body.roll;
 		let username = req.body.username;
 		let password = req.body.password;
@@ -199,6 +205,9 @@ app.post('/register',async (req,res)=>{
 	
 		if (!(roll && password && username && confirm_password)) {
 			res.status(400).send("All input is required");
+			var message="All inputs are required";
+			res.render(__dirname + "/demo3.ejs", { message:message });
+
 		  }
 	  
 		//If error,then return bad request;
@@ -214,15 +223,21 @@ app.post('/register',async (req,res)=>{
 				// If the account exists
 				console.log(results)
 				if (results.length > 0) {
-					res.redirect('/slogin');
+					
+					var message="User already  registered";
+					res.render(__dirname + "/demo3.ejs", { message:message });
 					// res.redirect('/alreadyexists');
 				} 
 				else if (password.length<5) {
-					errors.push({text:'Password does not match'});
+					var message="Password should be atleast 5 characters";
+					res.render(__dirname + "/demo3.ejs", { message:message });
+					
 					// res.redirect('/passnotmatched');
 				}
 				else if (confirm_password != password) {
-					errors.push({text:'Password must be at least 5 characters'});
+					var message="Password does not match";
+					res.render(__dirname + "/demo3.ejs", { message:message });
+					
 					// res.redirect('/passnotmatched');
 				}
 					 
@@ -239,27 +254,30 @@ app.post('/register',async (req,res)=>{
 					
 					var sql = 'INSERT INTO userTable SET ?';
 					connection.query(sql, users, function (error, results) {
-						if (error) throw error;
+						if (error) res.redirect('/slogin');
 						
 					});
 					
 					
-					res.redirect('/afterreg');
+					var data={
+						name: users.user,
+						roll:users.roll
+
+					}
+					console.log(data.roll);
+					res.render(__dirname + "/demo2.ejs", { data:data });
 					
 				}
 				res.end();
 			});
 		}
-	}
-	catch{
 		
-	// }
-	//  else {
-		res.send('Please enter Username and Password!');
+	
+	 else {
+		var message="Please enter Username and Password!";
+		res.render(__dirname + "/demo3.ejs", { message:message });	
 		res.end();
-	}
-
-
+}
 })
 
 
@@ -460,20 +478,23 @@ app.get('/home', function (request, response) {
 	response.end();
 });*/
 
-// http://localhost:3000/
-app.get('/shome', function (request, response) {
+// http://localhost:3000/->Login Required
+app.get('/shome',async(request, response)=>{
 	// var un = ls.get("currentuser");
-	console.log(request.session)
 	// ls.removeItem("currenthostel");
 	// ls.removeItem("currentgate");
 	// ls.removeItem("currentadmin");
 	// console.log('username is: ',un);
 	// if(un==null) response.redirect('/slogin');
 	
+	
+	// Render login template
+	//response.sendFile(path.join(__dirname + '/mainStd.html'));
+	// response.render(__dirname + "/mainStd.ejs", { name: un });
+	try{
+			console.log(request.session)
 
-		// Render login template
-		//response.sendFile(path.join(__dirname + '/mainStd.html'));
-		// response.render(__dirname + "/mainStd.ejs", { name: un });
+		
 		var data={
 			name: null,
 			roll:null
@@ -482,16 +503,22 @@ app.get('/shome', function (request, response) {
 		console.log(data.roll);
 		response.render(__dirname + "/demo2.ejs", { data:data });
 		
-	
+	}
+	catch{
+		response.sendFile(path.join(__dirname + '/demo3.html'));
+	}
 	
 });
-app.get('/apply', function (request, response) {
-
-
-	// Render login template
-	// response.sendFile(path.join(__dirname + '/apply.html'));
-	response.sendFile(path.join(__dirname + '/demo_apply.html'));
-
+//Login Required
+app.get('/apply', async (request, response)=>{
+	try{
+		// Render login template
+		// response.sendFile(path.join(__dirname + '/apply.html'));
+		response.sendFile(path.join(__dirname + '/demo_apply.html'));
+	}
+	catch{
+		response.sendFile(path.join(__dirname + '/demo3.html'));
+	}
 });
 
 app.post('/filled', function (request, response) {
@@ -646,7 +673,7 @@ console.log(rows);
 		if (err) {
 			request.flash('error', err);
 			// response.render(__dirname + "/mainTea.ejs", { page_title: "Users - Node.js", data: '' });
-			response.render(__dirname + "/demo_hostel.ejs", { page_title: "Users - Node.js", data: rows });
+			response.render(__dirname + "/demo_hostel.ejs", { page_title: "Users - Node.js", data: '' });
 		} else {
 			//console.log(rows);
 			// response.render(__dirname + "/mainTea.ejs", { page_title: "Users - Node.js", data: rows });
