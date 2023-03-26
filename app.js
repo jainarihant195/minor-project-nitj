@@ -69,8 +69,8 @@ app.get('/slogin', function (request, response) {
 	response.render(__dirname + "/demo3.ejs", { message:"" });
 });
 // Login Required
-app.post('/shome', async (req, res) => {
-	try{
+app.post('/shome', function(req, res){
+	
 		let success = false;
 		let roll = req.body.roll;
 		let password = req.body.password;
@@ -138,13 +138,9 @@ app.post('/shome', async (req, res) => {
 			res.render(__dirname + "/demo3.ejs", { message:message });
 			res.end();
 		}
-	}
-	catch{
-		var message="  Please Login with correct Credentials";
-		res.render(__dirname + "/demo3.ejs", { message:message });
-		res.end();
-
-	}
+	
+		
+	
   });
   
   
