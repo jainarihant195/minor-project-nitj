@@ -89,7 +89,7 @@
             </td> -->
             
           
-            <% if (data[i].status=='' ) { %>
+            <% if (data[i].status=='NULL' ) { %>
               <form class="" action="/update" method="post">
                 <td>
                   <input type="text" name="aid" hidden value="<%=data[i].id%>">
