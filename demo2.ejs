@@ -54,9 +54,10 @@
                         if(sessionStorage.getItem("user")==="null"){
                             console.log("in if")
                             sessionStorage.clear();
-                            if(window.location.href==='http://localhost:3000/shome')
-                            window.location.replace('http://localhost:3000/slogin')
-                            else window.location.replace('http://192.168.43.237:3000/slogin')
+                            // if(window.location.href==='http://localhost:3000/shome')
+                            // window.location.replace('http://localhost:3000/slogin')
+                            window.location.replace('https://gate-pass-nitj.onrender.com/slogin')
+                            // else window.location.replace('http://192.168.43.237:3000/slogin')
                             
                         }
                         // console.log('roll: ',roll);
@@ -76,9 +77,10 @@
 
                         if(name==="null" || roll==="null"){
                             console.log("in else")
-                            if(window.location.href==='http://localhost:3000/shome')
-                            window.location.replace('http://localhost:3000/slogin')
-                            else window.location.replace('http://192.168.43.237:3000/slogin')
+                            // if(window.location.href==='http://localhost:3000/shome')
+                            // window.location.replace('http://localhost:3000/slogin')
+                            window.location.replace('https://gate-pass-nitj.onrender.com/slogin')
+                            // else window.location.replace('http://192.168.43.237:3000/slogin')
                                                     }
                         // document.getElementById('name').innerHTML=name.innerHTML
                     }
@@ -140,9 +142,9 @@
     <script>
         function myFunction(){
             sessionStorage.clear();
-            if(window.location.href==='http://localhost:3000/shome') window.location.replace('http://localhost:3000/')
-            else window.location.replace('http://192.168.43.237:3000/')
-            // window.location.replace('https://gate-pass-nitj.onrender.com/')
+            // if(window.location.href==='http://localhost:3000/shome') window.location.replace('http://localhost:3000/')
+            // else window.location.replace('http://192.168.43.237:3000/')
+            window.location.replace('https://gate-pass-nitj.onrender.com/')
             
         }
         const upout=async()=>{
@@ -159,8 +161,8 @@
                 // })
                 // const json=await response
                 // console.log(json)
-                window.location.replace('http://localhost:3000/status')
-                // window.location.replace('https://gate-pass-nitj.onrender.com/status')
+                // window.location.replace('http://localhost:3000/status')
+                window.location.replace('https://gate-pass-nitj.onrender.com/status')
             }
 
 
