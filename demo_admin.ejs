@@ -24,18 +24,18 @@
                     <a href="https://www.nitj.ac.in/" target="_blank"><img src="nitjlogo.png"  alt="NITJ" height="60px" width="20px"></a>       
                 </div>
                 <ul>
-                    <li><a href="/">Home</a></li>
+                    <li><a href="#" onclick="myFunction()">Home</a></li>
                     <form method="post" action="/slogin">
-                        <li><a href="/slogin">Student Login</a></li>
+                        <li><a href="#" onclick="myFunction2()">Student</a></li>
                      </form>
                     <form method="post" action="/tlogin">
-                        <li><a href="/tlogin" >Hostel</a></li>
+                        <li><a href="#" onclick="myFunction3()" >Hostel</a></li>
                      </form>
                     <form method="post" action="/hlogin">
-                        <li><a href="/hlogin" class="current">Admin</a></li>
+                        <li><a href="#" onclick="myFunction4()" class="current">Admin</a></li>
                      </form>
                     <form method="post" action="/glogin">
-                        <li><a href="/glogin">Gate Keeper</a></li>
+                        <li><a href="#" onclick="myFunction5()">Gate</a></li>
                      </form>
                
                 </ul>
@@ -112,11 +112,31 @@
             <a href="https://github.com/GDSC-NITJ/" target="_blank"><i class="fab fa-github" style="display: inline;"></i></a>
         </div>
     </div>
-</footer>
-
-
-    
+</footer>    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script> 
+    <script>
+        function myFunction(){
+            sessionStorage.clear();
+            window.location.replace('https://gate-pass-nitj.onrender.com/') 
+        }
+        function myFunction2(){
+            sessionStorage.clear();
+            window.location.replace('https://gate-pass-nitj.onrender.com/slogin')                
+        }
+        function myFunction3(){
+            sessionStorage.clear();
+            window.location.replace('https://gate-pass-nitj.onrender.com/tlogin')
+        }
+        function myFunction4(){
+            sessionStorage.clear();
+            window.location.replace('https://gate-pass-nitj.onrender.com/hlogin')
+            
+        }
+        function myFunction5(){
+            sessionStorage.clear();
+            window.location.replace('https://gate-pass-nitj.onrender.com/glogin')
+        }
+    </script>
 </body>
 </html>
