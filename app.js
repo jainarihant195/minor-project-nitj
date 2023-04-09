@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 const express = require('express');
-const session = require('express-session');
+const session = require('cookie-session');
 const path = require('path');
 const dotenv = require("dotenv").config();
 const {v4 : uuidv4} = require('uuid');
