@@ -9,7 +9,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="table.css">
     <link rel="stylesheet" href="apply.css">
-    <title>Hostel</title>
+    <title>Student</title>
     <style>
         .mini {
             min-height: 32rem;
@@ -33,7 +33,7 @@
                     </form>
 
                     <form action="/">
-                        <li><a href="/">LogOut</a></li>
+                        <li><a href="#" onclick="myFunction()">LogOut</a></li>
                     </form>
                 </ul>
             </nav>
@@ -184,6 +184,12 @@ var status = document.getElementById(i).innerHTML;
     }
     }
     upout()
+    </script>
+    <script>
+        function myFunction(){
+            sessionStorage.clear();
+            window.location.replace('https://gate-pass-nitj.onrender.com/') 
+        }
     </script>
 </body>
 

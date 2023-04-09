@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="apply.css">
 
     <!-- <link rel="stylesheet" href="/static/login.css"> -->
-    <title>Student-Login</title>
+    <title>Student</title>
 </head>
 
 <body>
@@ -30,7 +30,7 @@
                     </form>
 
                     <form action="/">
-                        <li><a href="">LogOut</a></li>
+                        <li><a href="#" onclick="myFunction()">LogOut</a></li>
                     </form>
                 </ul>
         </div>
@@ -147,6 +147,11 @@ else{
     //if(window.location.href==='http://localhost:3000/shome') 
     // window.location.replace('http://localhost:3000/slogin')
     // else window.location.replace('http://192.168.43.237:3000/slogin')
+}
+function myFunction(){
+    sessionStorage.clear();
+    window.location.replace('https://gate-pass-nitj.onrender.com/')
+    
 }
 </script>
 </body>

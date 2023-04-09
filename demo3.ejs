@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="new.css">
     <link rel="stylesheet" href="alert.css">
     <!-- <link rel="stylesheet" href="/static/login.css"> -->
-    <title>Student-Login</title>
+    <title>Login</title>
     
     
 </head>
@@ -21,18 +21,18 @@
                     <a href="https://www.nitj.ac.in/" target="_blank"><img src="nitjlogo.png"  alt="NITJ" height="60px" width="20px"></a>       
                 </div>
                 <ul>
-                    <li><a href="/" >Home</a></li>
+                    <li><a href="#" onclick="myFunction()" >Home</a></li>
                     <form method="post" action="/slogin">
-                        <li><a href="/slogin" class="current">Student</a></li>
+                        <li><a href="#" onclick="myFunction2" class="current">Student</a></li>
                      </form>
                     <form method="post" action="/tlogin">
-                        <li><a href="/tlogin">Hostel</a></li>
+                        <li><a href="#" onclick="myFunction3()">Hostel</a></li>
                      </form>
                     <form method="post" action="/hlogin">
-                        <li><a href="/hlogin">Admin</a></li>
+                        <li><a href="#" onclick="myFunction4()">Admin</a></li>
                      </form>
                     <form method="post" action="/glogin">
-                        <li><a href="/glogin">Gate</a></li>
+                        <li><a href="#" onclick="myFunction5()">Gate</a></li>
                      </form>
                
                 </ul>
@@ -105,8 +105,30 @@
             </div>
         </div>
     </footer>
-
-
-    <!-- Main Script File -->
+    <script>
+        function myFunction(){
+            sessionStorage.clear();
+            if(window.location.href.slice(0,21)==='http://localhost:3000/') window.location.replace('http://localhost:3000/')
+            else window.location.replace('http://192.168.43.237:3000/')
+            
+        }
+        function myFunction2(){
+            sessionStorage.clear();
+            window.location.replace('https://gate-pass-nitj.onrender.com/slogin')                
+        }
+        function myFunction3(){
+            sessionStorage.clear();
+            window.location.replace('https://gate-pass-nitj.onrender.com/tlogin')
+        }
+        function myFunction4(){
+            sessionStorage.clear();
+            window.location.replace('https://gate-pass-nitj.onrender.com/hlogin')
+            
+        }
+        function myFunction5(){
+            sessionStorage.clear();
+            window.location.replace('https://gate-pass-nitj.onrender.com/glogin')
+        }
+    </script>
 </body>
 </html>

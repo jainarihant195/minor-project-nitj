@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="main.css">
   <link rel="stylesheet" href="new.css">
   <!-- <link rel="stylesheet" href="/static/login.css"> -->
-  <title>Admin</title>
+  <title>Gate</title>
 </head>
 
 <body>
@@ -21,15 +21,15 @@
       </div>
         <ul>
           <form method="post" action="/">
-            <li><a href="/">Home</a></li>
+            <li><a href="#" onclick="myFunction()">Home</a></li>
           </form>
           <form method="post" action="/slogin">
-            <li><a href="/slogin">Student Login</a></li>
+            <li><a href="#" onclick="myFunction2()">Student</a></li>
           </form>
 
-          <li><a href="/tlogin" >Hostel</a></li>
-          <li><a href="/hlogin" >Admin</a></li>
-          <li><a href="/glogin" class="current">Gate Keeper</a></li>
+          <li><a href="#" onclick="myFunction3()" >Hostel</a></li>
+          <li><a href="#" onclick="myFunction4()" >Admin</a></li>
+          <li><a href="#" onclick="myFunction5()" class="current">Gate</a></li>
         </ul>
       </nav>
     </div>
@@ -62,5 +62,29 @@
 </footer>
 
   <!-- Main Script File -->
+  <script>
+    function myFunction(){
+        sessionStorage.clear();
+        window.location.replace('https://gate-pass-nitj.onrender.com/')
+        
+    }
+    function myFunction2(){
+        sessionStorage.clear();
+        window.location.replace('https://gate-pass-nitj.onrender.com/slogin')                
+    }
+    function myFunction3(){
+        sessionStorage.clear();
+        window.location.replace('https://gate-pass-nitj.onrender.com/tlogin')
+    }
+    function myFunction4(){
+        sessionStorage.clear();
+        window.location.replace('https://gate-pass-nitj.onrender.com/hlogin')
+        
+    }
+    function myFunction5(){
+        sessionStorage.clear();
+        window.location.replace('https://gate-pass-nitj.onrender.com/glogin')
+    }
+</script>
 </body>
 </html>

@@ -26,13 +26,13 @@
                         <li><a href="#" onclick="myFunction2()">Student</a></li>
                      </form>
                     <form method="post" action="/tlogin">
-                        <li><a href="/tlogin">Hostel</a></li>
+                        <li><a href="#" onclick="myFunction3()">Hostel</a></li>
                      </form>
                     <form method="post" action="/hlogin">
-                        <li><a href="/hlogin">Admin</a></li>
+                        <li><a href="#" onclick="myFunction4()">Admin</a></li>
                      </form>
                     <form method="post" action="/glogin">
-                        <li><a href="/glogin">Gate</a></li>
+                        <li><a href="#" onclick="myFunction5()">Gate</a></li>
                      </form>
                
                 </ul>
@@ -102,20 +102,25 @@
 
         <script>
             function myFunction(){
-                sessionStorage.clear();
-                if(window.location.href.slice(0,21)==='http://localhost:3000/') window.location.replace('http://localhost:3000/')
-                else window.location.replace('http://192.168.43.237:3000/')
-                
-                // window.location.replace('https://gate-pass-nitj.onrender.com/')
-                
-            }
+            sessionStorage.clear();
+            window.location.replace('https://gate-pass-nitj.onrender.com/') 
+        }
             function myFunction2(){
                 sessionStorage.clear();
-                // if(window.location.href.slice(0,21)==='http://localhost:3000/') 
-                window.location.replace('https://gate-pass-nitj.onrender.com/slogin')
-                // window.location.replace('http://localhost:3000/slogin')
-                // else window.location.replace('http://192.168.43.237:3000/slogin')
+                window.location.replace('https://gate-pass-nitj.onrender.com/slogin')                
+            }
+            function myFunction3(){
+                sessionStorage.clear();
+                window.location.replace('https://gate-pass-nitj.onrender.com/tlogin')
+            }
+            function myFunction4(){
+                sessionStorage.clear();
+                window.location.replace('https://gate-pass-nitj.onrender.com/hlogin')
                 
+            }
+            function myFunction5(){
+                sessionStorage.clear();
+                window.location.replace('https://gate-pass-nitj.onrender.com/glogin')
             }
         </script>
 </body>
