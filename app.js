@@ -123,7 +123,8 @@ app.post('/shome', function (req, res) {
 
 					var data = {
 						name: results[0].user,
-						roll: results[0].roll
+						roll: results[0].roll,
+						alert:"false"
 
 					}
 					console.log(data.roll);
@@ -535,11 +536,16 @@ app.post('/filled', function (request, response) {
 	var phnum = request.body.phnum;
 	var reason = request.body.reason;
 	const newId = uuidv4();
-	console.log(newId);
-	console.log("name ", name);
-
+	var data = {
+		name: name,
+		roll: roll,
+		alert:"true"
+	}
 	//response.sendFile(path.join(__dirname + '/filled.ejs'));
-	response.render(__dirname + "/filled.ejs", { roll: roll, name: name, date: date, dateout: dateout, section: section, hostel: hostel, phnum: phnum, reason: reason, id: newId });
+	// console.log("Alert: ",data.alert);
+	response.render(__dirname + "/demo2.ejs",{ data: data });
+	// response.render(__dirname + "/filled.ejs", { roll: roll, name: name, date: date, section: section, hostel:hostel,phnum: phnum, reason: reason,id:newId });
+	
 	var details = {
 		roll: roll,
 		name: name,

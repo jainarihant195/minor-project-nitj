@@ -37,6 +37,7 @@
                 <% if (data.name!==null) { %>
                     <h1 class="header">Welcome Back <p id="name" style="display:contents"><%=data.name%></p></h1>
                     <div id="roll" style="display : none"><%=data.roll%></div>
+                    <div id="alert" style="display : none"><%=data.alert%></div>
                     <%} else { %>
                        
                         <h1 class="header">Welcome Back <p id="name2" style="display:contents"></p></h1>
@@ -46,13 +47,17 @@
                 <p class="lead">It's been a while since you bunked classes, how about we try to get you a gatepass. <br>LET'S GO!!!
                 </p>
                 <script>
-                    
+                    var alerty=document.getElementById("alert").innerHTML;
+                    if(alerty==="true"){
+                        // console.log("Hellllo");
+                        alert("You have successfully applied for Gate Pass.")
+                    }
                     if (sessionStorage.getItem("user")) {
                         // name.value = sessionStorage.getItem("user");
                         // console.log(name);
-                        console.log(sessionStorage.getItem("user"))
+                        // console.log(sessionStorage.getItem("user"))
                         if(sessionStorage.getItem("user")==="null"){
-                            console.log("in if")
+                            // console.log("in if")
                             sessionStorage.clear();
                             // if(window.location.href==='http://localhost:3000/shome')
                             // window.location.replace('http://localhost:3000/slogin')
@@ -84,6 +89,7 @@
                                                     }
                         // document.getElementById('name').innerHTML=name.innerHTML
                     }
+                    
                     </script>
             </div>
         </div>
@@ -148,7 +154,7 @@
         const upout=async()=>{
                 let un=sessionStorage.getItem("roll");
                 
-                console.log(un)
+                // console.log(un)
                 // const response=await fetch("http://localhost:3000/status",{
                 //     method:'GET',
                 //     headers:{
