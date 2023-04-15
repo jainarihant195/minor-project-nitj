@@ -17,15 +17,15 @@ const QrScanner = require('qr-scanner');
 
 var ls = require('local-storage');
 
-// const connection = mysql.createConnection(process.env.URI);
-const connection = mysql.createConnection({
-	host: process.env.HOST,
-	user: process.env.DATABASE_USER,
-	password: process.env.PASSWORD,
-	database: process.env.DATABASE,
-	port: process.env.PORT,
-}
-);
+const connection = mysql.createConnection(process.env.URI);
+// const connection = mysql.createConnection({
+// 	host: process.env.HOST,
+// 	user: process.env.DATABASE_USER,
+// 	password: process.env.PASSWORD,
+// 	database: process.env.DATABASE,
+// 	port: process.env.PORT,
+// }
+// );
 
 const app = express();
 app.use(session({
@@ -761,6 +761,7 @@ app.post('/download', function (request, response) {
 
 });
 app.get('/ghome', function (request, response) {
+	console.log("inghome")
 	// Render login template
 	//response.sendFile(path.join(__dirname + '/maingate.html'));
 	// ls.removeItem("currentadmin");
