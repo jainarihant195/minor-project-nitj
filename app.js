@@ -804,18 +804,19 @@ app.get('/scan', function (request, response) {
 app.post('/updategate', function (request, response) {
 	// Render login template
 	var auto = request.body.outid;
-	console.log("auto", auto);
+	console.log("auto2", auto);
 	//var location = document.location;
-	var currentTime = new Date();
-	var currentOffset = currentTime.getTimezoneOffset();
-	var ISTOffset = 330;   // IST offset UTC +5:30 
-	var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
-	var hoursIST = ISTTime.getHours()
-	var minutesIST = ISTTime.getMinutes()
-	var time= hoursIST + ":" + minutesIST;
-	console.log(time);
+	// var currentTime = new Date();
+	// var currentOffset = currentTime.getTimezoneOffset();
+	// var ISTOffset = 330;   // IST offset UTC +5:30 
+	// var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
+	// var hoursIST = ISTTime.getHours()
+	// var minutesIST = ISTTime.getMinutes()
+	// var time= hoursIST + ":" + minutesIST;
+	// console.log(time);
 	var sql = 'UPDATE gatepas SET status = ? where id = ?'
-	connection.query(sql, ['Out', ,auto], function (error, results) {
+	// var sql = 'SELECT * FROM gatepas where roll=?'
+	connection.query(sql, ['Out',auto], function (error, results) {
 		console.log(results);
 		if (error) throw error;
 		else {
