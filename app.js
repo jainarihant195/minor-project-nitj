@@ -817,7 +817,7 @@ app.post('/updategate', function (request, response) {
 	console.log(time,day);
 	var sql = 'UPDATE gatepas SET status = ?,outtime=? where id = ?'
 
-	connection.query(sql, ['Out',time,auto], function (error, results) {
+	connection.query(sql, ['Out',day,auto], function (error, results) {
 		console.log(results);
 		if (error) throw error;
 		else {
