@@ -54,6 +54,7 @@
 
                         <th scope="col" class="px-4 py-1 "> Action </th>
                         <th scope="col" class="px-4 py-1 "> Out Time </th>
+                        <th scope="col" class="px-4 py-1 "> In Time </th>
 
                     </tr>
                 </thead>
@@ -88,16 +89,32 @@
                             <td class="px-6 py-4">
                                 <%= data[i].status%>
                             </td>  <td>
-                            <form class="" action="/updategate" method="post">
+                                <% if (data[i].status==="Out" || data[i].status==="IN" ) { %>
+                                    <form class="" action="/updategate2" method="post">
                               
-                                    <input type="text" name="outid" hidden value="<%=data[i].id%>">
-                                    <button type="submit"
-                                        class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-                                        name="out" value="<%= data[i].id%>" class="cutom-btn btn-2">OUT</button>
-                               
-                            </form> </td>
+                                        <input type="text" name="inid" hidden value="<%=data[i].id%>">
+                                        <button type="submit"
+                                            class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                                            name="in" value="<%= data[i].id%>" class="cutom-btn btn-2">IN</button>
+                                   
+                                </form>
+                                    <%} else { %>
+                                        <form class="" action="/updategate" method="post">
+                              
+                                            <input type="text" name="outid" hidden value="<%=data[i].id%>">
+                                            <button type="submit"
+                                                class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                                                name="out" value="<%= data[i].id%>" class="cutom-btn btn-2">OUT</button>
+                                       
+                                    </form>
+                                    <% } %>
+                                 
+                             </td>
                             <td class="px-6 py-4">
                                 <%= data[i].outtime%>
+                            </td>
+                            <td class="px-6 py-4">
+                                <%= data[i].intime%>
                             </td>
 
 

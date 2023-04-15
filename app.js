@@ -829,6 +829,35 @@ app.post('/updategate', function (request, response) {
 	//response.render(__dirname+"/updated.html");
 
 });
+app.post('/updategate2', function (request, response) {
+	// Render login template
+	var auto = request.body.inid;
+	console.log("auto2", auto);
+	//var location = document.location;
+	var currentTime = new Date();
+	var currentOffset = currentTime.getTimezoneOffset();
+	var ISTOffset = 330;   // IST offset UTC +5:30 
+	var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
+	var hoursIST = ISTTime.getHours()
+	var minutesIST = ISTTime.getMinutes()
+	if(minutesIST<="9") minutesIST+="0"+minutesIST;
+	var time= hoursIST + ":" + minutesIST;
+	var day=currentTime.getDate()+"-"+currentTime.getMonth()+"-"+currentTime.getFullYear()+" "+time;
+	console.log(time,day);
+	var sql = 'UPDATE gatepas SET status = ?,intime=? where id = ?'
+
+	connection.query(sql, ['IN',day,auto], function (error, results) {
+		console.log(results);
+		if (error) throw error;
+		else {
+			response.redirect("/ghome");
+			// response.json({ results });
+		}
+	});
+	//response.sendFile(path.join(__dirname + '/updated.html'));
+	//response.render(__dirname+"/updated.html");
+
+});
 /*app.post('/updategate', function (request, response) {
 	// Render login template
 	var auto = request.body.outid;
