@@ -435,7 +435,7 @@ app.post('/gauth', function (request, response) {
 	// Ensure the input fields exists and are not empty
 	if (username && password) {
 
-		if (username == 'gate' && password == 'gate') {
+		if (username == 'gate' && password == 'gate12345') {
 			request.session.loggedin = true;
 			request.session.username = username;
 			ls.set("currentgate", username);
