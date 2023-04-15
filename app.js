@@ -17,15 +17,15 @@ const QrScanner = require('qr-scanner');
 
 var ls = require('local-storage');
 
-const connection = mysql.createConnection(process.env.URI);
-// const connection = mysql.createConnection({
-// 	host: process.env.HOST,
-// 	user: process.env.DATABASE_USER,
-// 	password: process.env.PASSWORD,
-// 	database: process.env.DATABASE,
-// 	port: process.env.PORT,
-// }
-// );
+// const connection = mysql.createConnection(process.env.URI);
+const connection = mysql.createConnection({
+	host: process.env.HOST,
+	user: process.env.DATABASE_USER,
+	password: process.env.PASSWORD,
+	database: process.env.DATABASE,
+	port: process.env.PORT,
+}
+);
 
 const app = express();
 app.use(session({
@@ -805,14 +805,21 @@ app.post('/updategate', function (request, response) {
 	var auto = request.body.outid;
 	console.log("auto", auto);
 	//var location = document.location;
-
+	var currentTime = new Date();
+	var currentOffset = currentTime.getTimezoneOffset();
+	var ISTOffset = 330;   // IST offset UTC +5:30 
+	var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
+	var hoursIST = ISTTime.getHours()
+	var minutesIST = ISTTime.getMinutes()
+	var time= hoursIST + ":" + minutesIST;
+	console.log(time);
 	var sql = 'UPDATE gatepas SET status = ? where id = ?'
-	connection.query(sql, ['Out', auto], function (error, results) {
+	connection.query(sql, ['Out', ,auto], function (error, results) {
 		console.log(results);
 		if (error) throw error;
 		else {
-			// response.redirect("/ghome");
-			response.json({ results });
+			response.redirect("/ghome");
+			// response.json({ results });
 		}
 	});
 	//response.sendFile(path.join(__dirname + '/updated.html'));
