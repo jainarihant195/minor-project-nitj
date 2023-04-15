@@ -819,8 +819,8 @@ app.post('/updategate', function (request, response) {
 		console.log(results);
 		if (error) throw error;
 		else {
-			response.redirect("/ghome");
-			// response.json({ results });
+			// response.redirect("/ghome");
+			response.json({ results });
 		}
 	});
 	//response.sendFile(path.join(__dirname + '/updated.html'));
