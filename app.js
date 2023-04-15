@@ -813,9 +813,18 @@ app.post('/updategate', function (request, response) {
 	var minutesIST = ISTTime.getMinutes()
 	if(minutesIST<="9") minutesIST+="0"+minutesIST;
 	var time= hoursIST + ":" + minutesIST;
-	var day=currentTime.getDate()+"-"+currentTime.getMonth()+"-"+currentTime.getFullYear()+" "+time;
-	console.log(time,day);
+	var day=currentTime.getDate()+"-"+(currentTime.getMonth()+1)+"-"+currentTime.getFullYear()+" "+time;
 	var sql = 'UPDATE gatepas SET status = ?,outtime=? where id = ?'
+	connection.query('SELECT status FROM gatepas where id=?', [auto], function (err, rows) {
+		if (err) {
+			request.flash('error', err);
+		} else {
+			// console.log("Chal rha hu me :",rows[0].status);
+			if(rows[0].status==="Out"){
+				response.redirect("/updategate2");
+			}
+		}
+	});
 
 	connection.query(sql, ['Out',day,auto], function (error, results) {
 		console.log(results);
@@ -842,7 +851,7 @@ app.post('/updategate2', function (request, response) {
 	var minutesIST = ISTTime.getMinutes()
 	if(minutesIST<="9") minutesIST+="0"+minutesIST;
 	var time= hoursIST + ":" + minutesIST;
-	var day=currentTime.getDate()+"-"+currentTime.getMonth()+"-"+currentTime.getFullYear()+" "+time;
+	var day=currentTime.getDate()+"-"+(currentTime.getMonth()+1)+"-"+currentTime.getFullYear()+" "+time;
 	console.log(time,day);
 	var sql = 'UPDATE gatepas SET status = ?,intime=? where id = ?'
 
