@@ -761,7 +761,6 @@ app.post('/download', function (request, response) {
 
 });
 app.get('/ghome', function (request, response) {
-	console.log("inghome")
 	// Render login template
 	//response.sendFile(path.join(__dirname + '/maingate.html'));
 	// ls.removeItem("currentadmin");
@@ -806,22 +805,24 @@ app.post('/updategate', function (request, response) {
 	var auto = request.body.outid;
 	console.log("auto2", auto);
 	//var location = document.location;
-	// var currentTime = new Date();
-	// var currentOffset = currentTime.getTimezoneOffset();
-	// var ISTOffset = 330;   // IST offset UTC +5:30 
-	// var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
-	// var hoursIST = ISTTime.getHours()
-	// var minutesIST = ISTTime.getMinutes()
-	// var time= hoursIST + ":" + minutesIST;
-	// console.log(time);
-	var sql = 'UPDATE gatepas SET status = ? where id = ?'
-	// var sql = 'SELECT * FROM gatepas where roll=?'
-	connection.query(sql, ['Out',auto], function (error, results) {
+	var currentTime = new Date();
+	var currentOffset = currentTime.getTimezoneOffset();
+	var ISTOffset = 330;   // IST offset UTC +5:30 
+	var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
+	var hoursIST = ISTTime.getHours()
+	var minutesIST = ISTTime.getMinutes()
+	if(minutesIST<="9") minutesIST+="0"+minutesIST;
+	var time= hoursIST + ":" + minutesIST;
+	var day=currentTime.getDate()+"-"+currentTime.getMonth()+"-"+currentTime.getFullYear()+" "+time;
+	console.log(time,day);
+	var sql = 'UPDATE gatepas SET status = ?,outtime=? where id = ?'
+
+	connection.query(sql, ['Out',time,auto], function (error, results) {
 		console.log(results);
 		if (error) throw error;
 		else {
-			// response.redirect("/ghome");
-			response.json({ results });
+			response.redirect("/ghome");
+			// response.json({ results });
 		}
 	});
 	//response.sendFile(path.join(__dirname + '/updated.html'));
